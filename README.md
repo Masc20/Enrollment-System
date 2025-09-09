@@ -58,16 +58,17 @@ git clone https://github.com/Masc/enrollment-system.git
 cd enrollment-system
 ```
 ### 2. Backend Setup
+-  **Create virtual environment**
 ```
-Create virtual environment
 python -m venv venv
 source venv/bin/activate   # On Windows: venv\Scripts\activate
 ```
-## Install dependencies
+-  **Install dependencies**
 ```
+
 pip install -r requirements.txt
 ```
-## Example requirements.txt
+-  **Example requirements.txt**
 ```
 fastapi
 uvicorn[standard]
@@ -78,10 +79,10 @@ pydantic
 python-dotenv
 pytest
 ```
-## Run server
+-  **Run server**
 uvicorn app.main:app --reload
 
-## API will be available at:
+-  **API will be available at:**
 ```
 👉 http://127.0.0.1:8000/docs (Swagger UI)
 👉 http://127.0.0.1:8000/redoc (ReDoc)
@@ -90,37 +91,37 @@ uvicorn app.main:app --reload
 
 Make sure you have PostgreSQL installed and running.
 
-Create a database:
-
+- **Create a database:**
+```
 CREATE DATABASE enrollment_db;
-
-Apply migrations:
-
+```
+- **Apply migrations:**
+```
 alembic upgrade head
-
+```
 ### 4. Front-End Setup
 
 🚧 To be decided (React/Vue/Angular/etc.)
 open for suggestions
 
-🧪 Testing
+## 🧪 Testing
 
-Run tests with:
+- **Run tests with:**
 ```
 pytest
 ```
 ---
 ### 🚀 Features (Planned)
 
-Student management (CRUD)
+- Student management (CRUD)
 
-Course & section management
+- Course & section management
 
-Enrollment workflows
+- Enrollment workflows
 
-Authentication & authorization (JWT)
+- Authentication & authorization (JWT)
 
-Reporting & analytics
+- Reporting & analytics
 
 
 
