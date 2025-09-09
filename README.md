@@ -26,43 +26,11 @@ Implements an **async REST API** for managing students, courses, and enrollment 
 - **API Communication**: Axios / Fetch API  
 
 ---
-
 ## 📂 Project Structure
 
-enrollment-system/
-|
-│── backend/
-|
-│ ├── app/
-|
-│ │ ├── main.py # FastAPI entry point
-|
-│ │ ├── api/ # API routes
-|
-│ │ ├── models/ # SQLAlchemy models
-|
-│ │ ├── schemas/ # Pydantic schemas
-|
-│ │ ├── services/ # Business logic
-|
-│ │ ├── db.py # Async DB connection
-|
-│ │ └── config.py # Config/env handling
-|
-│ ├── alembic/ # DB migrations
-|
-│ ├── tests/ # Unit/integration tests
-|
-│ └── requirements.txt # Python dependencies
-|
-│
-|
-│── frontend/ # Front-end (to be implemented)
-|
-│
-|
-└── README.md
-
+The project follows a modular and scalable architecture, separating concerns between backend logic, API layers, data models, and configuration. Below is the directory structure:
+   
+enrollment-system/ ├── backend/ │ ├── app/ │ │ ├── main.py # FastAPI application entry point │ │ ├── api/ # API route definitions (v1, etc.) │ │ ├── models/ # SQLAlchemy ORM models │ │ ├── schemas/ # Pydantic models for request/response validation │ │ ├── services/ # Business logic and data processing │ │ ├── db.py # Async database connection setup (using SQLAlchemy + asyncpg/psycopg) │ │ └── config.py # Configuration and environment variable management │ ├── alembic/ # Database migration scripts (via Alembic) │ ├── tests/ # Unit and integration tests │ └── requirements.txt # Python dependencies for the backend │ ├── frontend/ # Placeholder for future front-end implementation (e.g., React/Vue) │ └── README.md # Project documentation
 ---
 
 ## ⚡ Installation & Setup
