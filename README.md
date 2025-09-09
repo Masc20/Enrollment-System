@@ -103,7 +103,7 @@ alembic upgrade head
 
 🚧 To be decided (React/Vue/Angular/etc.)
 open for suggestions
-
+---
 ## 🧪 Testing
 
 - **Run tests with:**
