@@ -81,11 +81,11 @@ pytest
 ## Run server
 uvicorn app.main:app --reload
 
-
 ## API will be available at:
+```
 👉 http://127.0.0.1:8000/docs (Swagger UI)
 👉 http://127.0.0.1:8000/redoc (ReDoc)
-
+```
 ### 3. Database Setup
 
 Make sure you have PostgreSQL installed and running.
@@ -93,7 +93,6 @@ Make sure you have PostgreSQL installed and running.
 Create a database:
 
 CREATE DATABASE enrollment_db;
-
 
 Apply migrations:
 
@@ -107,9 +106,9 @@ open for suggestions
 🧪 Testing
 
 Run tests with:
-
+```
 pytest
-
+```
 ---
 ### 🚀 Features (Planned)
 
