@@ -47,9 +47,6 @@ enrollment-system/
 │
 └── README.md
 
-yaml
-Copy code
-
 ---
 
 ## ⚡ Installation & Setup
