@@ -30,37 +30,37 @@ Implements an **async REST API** for managing students, courses, and enrollment 
 ## 📂 Project Structure
 
 enrollment-system/
-\n
+|
 │── backend/
-
+|
 │ ├── app/
-
+|
 │ │ ├── main.py # FastAPI entry point
-
+|
 │ │ ├── api/ # API routes
-
+|
 │ │ ├── models/ # SQLAlchemy models
-
+|
 │ │ ├── schemas/ # Pydantic schemas
-
+|
 │ │ ├── services/ # Business logic
-
+|
 │ │ ├── db.py # Async DB connection
-
+|
 │ │ └── config.py # Config/env handling
-
+|
 │ ├── alembic/ # DB migrations
-
+|
 │ ├── tests/ # Unit/integration tests
-
+|
 │ └── requirements.txt # Python dependencies
-
+|
 │
-
+|
 │── frontend/ # Front-end (to be implemented)
-
+|
 │
-
+|
 └── README.md
 
 ---
