@@ -53,19 +53,22 @@ enrollment-system/
 ## ⚡ Installation & Setup
 
 ### 1. Clone the repo
-```bash```
+```bash
 git clone https://github.com/Masc/enrollment-system.git
 cd enrollment-system
-
+```
 ### 2. Backend Setup
+```
 Create virtual environment
 python -m venv venv
 source venv/bin/activate   # On Windows: venv\Scripts\activate
-
+```
 ## Install dependencies
+```
 pip install -r requirements.txt
-
+```
 ## Example requirements.txt
+```
 fastapi
 uvicorn[standard]
 sqlalchemy>=2.0
@@ -74,7 +77,7 @@ alembic
 pydantic
 python-dotenv
 pytest
-
+```
 ## Run server
 uvicorn app.main:app --reload
 
