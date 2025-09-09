@@ -28,9 +28,26 @@ Implements an **async REST API** for managing students, courses, and enrollment 
 ---
 ## 📂 Project Structure
 
-The project follows a modular and scalable architecture, separating concerns between backend logic, API layers, data models, and configuration. Below is the directory structure:
-   
-enrollment-system/ ├── backend/ │ ├── app/ │ │ ├── main.py # FastAPI application entry point │ │ ├── api/ # API route definitions (v1, etc.) │ │ ├── models/ # SQLAlchemy ORM models │ │ ├── schemas/ # Pydantic models for request/response validation │ │ ├── services/ # Business logic and data processing │ │ ├── db.py # Async database connection setup (using SQLAlchemy + asyncpg/psycopg) │ │ └── config.py # Configuration and environment variable management │ ├── alembic/ # Database migration scripts (via Alembic) │ ├── tests/ # Unit and integration tests │ └── requirements.txt # Python dependencies for the backend │ ├── frontend/ # Placeholder for future front-end implementation (e.g., React/Vue) │ └── README.md # Project documentation
+```
+enrollment-system/
+├── backend/
+│   ├── app/
+│   │   ├── main.py           # FastAPI application entry point
+│   │   ├── api/              # API route handlers
+│   │   ├── models/           # SQLAlchemy database models
+│   │   ├── schemas/          # Pydantic validation schemas
+│   │   ├── services/         # Business logic
+│   │   ├── db.py             # Async database connection
+│   │   └── config.py         # Configuration and environment variables
+│   ├── alembic/              # Database migrations (Alembic)
+│   ├── tests/                # Unit and integration tests
+│   └── requirements.txt      # Python dependencies
+│
+├── frontend/                 # Frontend (to be implemented)
+│
+└── README.md                 # This file
+```
+
 ---
 
 ## ⚡ Installation & Setup
