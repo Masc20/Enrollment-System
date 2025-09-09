@@ -123,8 +123,3 @@ pytest
 - Authentication & authorization (JWT)
 
 - Reporting & analytics
-
-
-
-
-
