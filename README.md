@@ -110,6 +110,18 @@ Run tests with:
 
 pytest
 
+---
+### 🚀 Features (Planned)
+
+Student management (CRUD)
+
+Course & section management
+
+Enrollment workflows
+
+Authentication & authorization (JWT)
+
+Reporting & analytics
 
 
 
