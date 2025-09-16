@@ -1,6 +1,6 @@
-=====================================
+==========================================================================
 ## 📌 Relational Mapping Summary (Updated)
-=====================================
+==========================================================================
 
 **1. Student – Enrollment (1:M)**
    - A student can have multiple enrollments (per academic year/semester).
@@ -41,23 +41,23 @@
    - Example: Calculus 2 requires Calculus 1.
 
 **10. Requirement – Student (M:N via Student_Requirement)**
-    - A requirement can apply to many students.
-    - A student can submit many requirements.
+   - A requirement can apply to many students.
+   - A student can submit many requirements.
 
 **11. Payment – Enrollment (1:M)**
-    - Each payment belongs to one enrollment (semester-based).
-    - An enrollment can have multiple payments.
-    - Ensures tuition tracking per semester.
+   - Each payment belongs to one enrollment (semester-based).
+   - An enrollment can have multiple payments.
+   - Ensures tuition tracking per semester.
 
 **12. Grade – Enrollment_Detail (M:1)**
-    - Each grade is tied to one enrollment detail (a student’s subject).
-    - Stores numeric grade and remarks per subject per semester.
+   - Each grade is tied to one enrollment detail (a student’s subject).
+   - Stores numeric grade and remarks per subject per semester.
 
 ---
 
-=====================================
+==========================================================================
 ## 📝 Compact Crow’s Foot Notation (Updated)
-=====================================
+==========================================================================
 
 
 - Student              ∞—1   Enrollment
