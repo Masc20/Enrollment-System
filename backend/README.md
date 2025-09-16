@@ -1,118 +1,82 @@
+=====================================
+## 📌 Relational Mapping Summary (Updated)
+=====================================
 
-# 📌 Relational Mapping Summary
+**1. Student – Enrollment (1:M)**
+   - A student can have multiple enrollments (per academic year/semester).
+   - Each enrollment belongs to exactly one student.
+   - The course and section are tracked here (students can shift courses or sections).
 
----
+**2. Enrollment – Enrollment_Detail (1:M)**
+   - An enrollment can have many enrollment details (one per subject/schedule).
+   - Each detail belongs to exactly one enrollment.
 
-Student – Course
+**3. Enrollment_Detail – Schedule (M:1)**
+   - Each enrollment detail links to one schedule.
+   - A schedule can be linked by many enrollment details (many students in the same class).
 
-- One student belongs to one course.
-- One course has many students.
+**4. Schedule – Teacher (M:1)**
+   - Each schedule is taught by one teacher.
+   - A teacher can teach multiple schedules.
 
----
+**5. Schedule – Subject (M:1)**
+   - Each schedule is for one subject.
+   - A subject can appear in multiple schedules (different sections/semesters).
 
-Course – Department
+**6. Schedule – Section (M:1)**
+   - Each schedule belongs to one section.
+   - A section can have many schedules.
+   - Irregulars are placed in a special "Irregular Section" instead of NULL.
 
-- One course belongs to one department.
-- One department has many courses.
+**7. Section – Course (M:1)**
+   - Each section is tied to one course.
+   - A course can have multiple sections.
 
----
+**8. Course – Department (M:1)**
+   - Each course belongs to one department.
+   - A department can offer many courses.
 
-Section – Course
+**9. Subject – Subject (1:M self-relationship)**
+   - A subject can have prerequisites.
+   - Example: Calculus 2 requires Calculus 1.
 
-- One section belongs to one course.
-- One course has many sections.
+**10. Requirement – Student (M:N via Student_Requirement)**
+    - A requirement can apply to many students.
+    - A student can submit many requirements.
 
----
+**11. Payment – Enrollment (1:M)**
+    - Each payment belongs to one enrollment (semester-based).
+    - An enrollment can have multiple payments.
+    - Ensures tuition tracking per semester.
 
-Subject – Subject (Prerequisite)
-
-- One subject may have zero or one prerequisite.
-- One subject can be a prerequisite for many other subjects.
-
----
-
-Schedule – Teacher
-
-- One schedule is handled by one teacher.
-- One teacher can handle many schedules.
-
----
-
-Schedule – Subject
-
-- One schedule is for one subject.
-- One subject can have many schedules (different sections, different teachers).
-
----
-
-Schedule – Section
-
-- One schedule is for one section.
-- One section can have many schedules (its subjects across the semester).
-
----
-
-Enrollment – Student
-
-- One enrollment record belongs to one student.
-- One student can have many enrollment records (different semesters).
+**12. Grade – Enrollment_Detail (M:1)**
+    - Each grade is tied to one enrollment detail (a student’s subject).
+    - Stores numeric grade and remarks per subject per semester.
 
 ---
 
-Enrollment – Section
+=====================================
+## 📝 Compact Crow’s Foot Notation (Updated)
+=====================================
 
-- One enrollment record belongs to one section (for regular students).
-- One section can have many enrollment records (students enrolled in that section).
-- ⚠️ For irregular students → section may be NULL or linked to a special “Irregular” section.
 
----
+- Student              ∞—1   Enrollment
+- Enrollment           ∞—1   Course
+- Course               ∞—1   Department
+- Section              ∞—1   Course		( "Course"-"Section ) || ("Course"-IRREG)
+- Subject              ∞—0..1 Subject		(self-reference for prerequisite)
 
-Enrollment_Detail – Enrollment
+- Schedule             ∞—1   Teacher
+- Schedule             ∞—1   Subject
+- Schedule             ∞—1   Section
 
-- One enrollment detail belongs to one enrollment record.
-- One enrollment record can have many enrollment details (the subjects the student takes).
+- Enrollment_Detail    ∞—1   Enrollment
+- Enrollment_Detail    ∞—1   Schedule
 
----
+- Grade                ∞—1   Enrollment_Detail
 
-Enrollment_Detail – Schedule
+- Payment              ∞—1   Enrollment
 
-- One enrollment detail is tied to one schedule.
-- One schedule can appear in many enrollment details (because many students can enroll in it).
+- Student_Requirement  ∞—1   Student
+- Student_Requirement  ∞—1   Requirement
 
----
-
-Payment – Student
-
-- One payment belongs to one student.
-- One student can have many payments (installments, multiple semesters).
-
----
-
-Student_Requirement – Student & Requirement (M:N)
-
-- One student can have many requirements.
-- One requirement can apply to many students.
-- Student_Requirement acts as the bridge table that records submission status and dates.
-
----
-
-## Crow’s foot style notation:
-
-### 📌 Relational Mapping Quick Reference
-
-```
-Student  ∞—1  Course
-Course   ∞—1  Department
-Section  ∞—1  Course
-Subject  ∞—0..1 Subject   (self-reference for prerequisite)
-Schedule ∞—1  Teacher
-Schedule ∞—1  Subject
-Schedule ∞—1  Section
-Enrollment ∞—1 Student
-Enrollment ∞—0..1 Section  (NULL for irregulars)
-Enrollment_Detail ∞—1 Enrollment
-Enrollment_Detail ∞—1 Schedule
-Payment ∞—1 Student
-Student_Requirement ∞—1 Student
-Student_Requirement ∞—1 Requirement
-```

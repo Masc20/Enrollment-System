@@ -10,9 +10,7 @@ CREATE TABLE "Student" (
   "email" varchar(50),
   "address" text,
   "status" varchar(30),
-  "enrollment_status" varchar(30),
-  "year_level" varchar(10),
-  "course_id" int
+  "enrollment_status" varchar(30)
 );
 
 CREATE TABLE "Teacher" (
@@ -26,13 +24,13 @@ CREATE TABLE "Teacher" (
 CREATE TABLE "Course" (
   "course_id" int PRIMARY KEY,
   "course_code" varchar(10),
-  "course_name" varchar(10),
+  "course_name" varchar(50),
   "dept_id" int
 );
 
 CREATE TABLE "Department" (
   "dept_id" int PRIMARY KEY,
-  "dept_name" varchar(30)
+  "dept_name" varchar(50)
 );
 
 CREATE TABLE "Section" (
@@ -45,7 +43,7 @@ CREATE TABLE "Section" (
 CREATE TABLE "Subject" (
   "subject_id" int PRIMARY KEY,
   "sub_code" varchar(10),
-  "subject_name" varchar(30),
+  "subject_name" varchar(50),
   "sub_type" varchar(30),
   "num_units" int(2),
   "pre_req_id" int
@@ -55,7 +53,7 @@ CREATE TABLE "Schedule" (
   "schedule_id" int PRIMARY KEY,
   "days" varchar(30),
   "sched_time" timestamp,
-  "room_number" varchar(30),
+  "room_number" varchar(10),
   "section_id" int,
   "subject_id" int,
   "teacher_id" int
@@ -65,8 +63,10 @@ CREATE TABLE "Enrollment" (
   "enrollment_id" int PRIMARY KEY,
   "academic_year" varchar(10),
   "semester" varchar(10),
+  "year_level" varchar(10),
   "student_id" int,
-  "section_id" int
+  "section_id" int,
+  "course_id" int
 );
 
 CREATE TABLE "Enrollment_Detail" (
@@ -77,16 +77,16 @@ CREATE TABLE "Enrollment_Detail" (
 
 CREATE TABLE "Payment" (
   "payment_id" int PRIMARY KEY,
-  "amount" int,
+  "amount" double,
   "date_paid" datetime,
   "payment_method" varchar(30),
   "remarks" text,
-  "student_id" int
+  "enrollment_id" int
 );
 
 CREATE TABLE "Requirement" (
   "req_id" int PRIMARY KEY,
-  "req_name" varchar(30)
+  "req_name" varchar(50)
 );
 
 CREATE TABLE "Student_Requirement" (
@@ -97,7 +97,12 @@ CREATE TABLE "Student_Requirement" (
   "req_id" int
 );
 
-ALTER TABLE "Student" ADD FOREIGN KEY ("course_id") REFERENCES "Course" ("course_id");
+CREATE TABLE "Grade" (
+  "grade_id" int PRIMARY KEY,
+  "grade" decimal(3,2),
+  "remarks" varchar(30),
+  "enroll_detail_id" int
+);
 
 ALTER TABLE "Course" ADD FOREIGN KEY ("dept_id") REFERENCES "Department" ("dept_id");
 
@@ -115,12 +120,16 @@ ALTER TABLE "Enrollment" ADD FOREIGN KEY ("student_id") REFERENCES "Student" ("s
 
 ALTER TABLE "Enrollment" ADD FOREIGN KEY ("section_id") REFERENCES "Section" ("section_id");
 
+ALTER TABLE "Enrollment" ADD FOREIGN KEY ("course_id") REFERENCES "Course" ("course_id");
+
 ALTER TABLE "Enrollment_Detail" ADD FOREIGN KEY ("enrollment_id") REFERENCES "Enrollment" ("enrollment_id");
 
 ALTER TABLE "Enrollment_Detail" ADD FOREIGN KEY ("schedule_id") REFERENCES "Schedule" ("schedule_id");
 
-ALTER TABLE "Payment" ADD FOREIGN KEY ("student_id") REFERENCES "Student" ("student_id");
+ALTER TABLE "Payment" ADD FOREIGN KEY ("enrollment_id") REFERENCES "Enrollment" ("enrollment_id");
 
 ALTER TABLE "Student_Requirement" ADD FOREIGN KEY ("stud_id") REFERENCES "Student" ("student_id");
 
 ALTER TABLE "Student_Requirement" ADD FOREIGN KEY ("req_id") REFERENCES "Requirement" ("req_id");
+
+ALTER TABLE "Grade" ADD FOREIGN KEY ("enroll_detail_id") REFERENCES "Enrollment_Detail" ("enroll_detail_id");
