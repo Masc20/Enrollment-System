@@ -1,11 +1,11 @@
 import pytest
-import httpx
-from app.main import app
+from sqlalchemy import text
+from app.db import engine
 
 @pytest.mark.asyncio
 async def test_db_connection():
-    transport = httpx.ASGITransport(app=app)
-    async with httpx.AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/test-db")
-    assert response.status_code == 200
-    assert response.json()["status"].startswith("✅")
+    """Check if PostgreSQL is reachable"""
+    async with engine.connect() as conn:
+        result = await conn.execute(text("SELECT 1"))
+        assert result.scalar() == 1
+

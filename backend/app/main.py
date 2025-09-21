@@ -1,14 +1,13 @@
-from fastapi import FastAPI, Depends
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import text
-from app.deps import get_db
+from fastapi import FastAPI
+from app.api.v1 import students
 
-app = FastAPI()
+app = FastAPI(title="Enrollment System API")
 
-@app.get("/test-db")
-async def test_db(db: AsyncSession = Depends(get_db)):
-    try:
-        result = await db.execute(text('SELECT 1'))
-        return {"status": "✅ Database connected!", "result": result.scalar()}
-    except Exception as e:
-        return {"status": "❌ Database connection failed", "error": str(e)}
+# Register routers
+app.include_router(students.router, prefix="/students", tags=["students"])
+# app.include_router(courses.router, prefix="/courses", tags=["courses"])
+# app.include_router(enrollment.router, prefix="/enrollment", tags=["enrollment"])
+
+@app.get("/")
+async def root():
+    return {"message": "Welcome to the Enrollment System"}
