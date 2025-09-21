@@ -1,0 +1,9 @@
+
+
+
+
+When change models (add/remove column, new table):
+Initialize scripts: alembic revision --autogenerate -m "init tables"
+Run alembic revision: --autogenerate -m "changed models"
+Check the migration script (alembic/versions/xxx.py)
+Run alembic upgrade head
