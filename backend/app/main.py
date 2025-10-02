@@ -1,7 +1,18 @@
 from fastapi import FastAPI
-from app.api.v1 import students
+from uvicorn import lifespan
+from contextlib import asynccontextmanager
 
-app = FastAPI(title="Enrollment System API")
+from app.api.v1 import students
+from db import init_db
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup
+    await init_db()
+    yield
+    # Shutdown (if needed, e.g., close connections)
+
+app = FastAPI(title="Enrollment System API", lifespan=lifespan)
 
 # Register routers
 app.include_router(students.router, prefix="/students", tags=["students"])
@@ -11,3 +22,4 @@ app.include_router(students.router, prefix="/students", tags=["students"])
 @app.get("/")
 async def root():
     return {"message": "Welcome to the Enrollment System"}
+

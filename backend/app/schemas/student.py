@@ -7,6 +7,9 @@ class StudentBase(BaseModel):
 class StudentCreate(StudentBase):
     pass
 
+class StudentUpdate(StudentBase):
+    pass
+
 class StudentOut(StudentBase):
     id: int
 
