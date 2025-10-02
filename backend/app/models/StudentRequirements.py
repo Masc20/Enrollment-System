@@ -6,7 +6,7 @@ from app.db import Base
 class StudentRequirements(Base):
     __tablename__ = "student_requirements"
 
-    stud_req_id = Column(Integer, primary_key=True)
+    stud_req_id = Column(Integer, primary_key=True, autoincrement=True)
     status = Column(String(10))
     date_submitted = Column(DateTime)
     stud_id = Column(Integer, ForeignKey("students.student_id"))

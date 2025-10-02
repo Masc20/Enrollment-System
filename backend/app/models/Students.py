@@ -6,7 +6,7 @@ from app.db import Base
 class Students(Base):
     __tablename__ = "students"
 
-    student_id = Column(Integer, primary_key=True)
+    student_id = Column(Integer, primary_key=True, autoincrement=True)
     student_number = Column(String(30), unique=True)
     first_name = Column(String(30))
     middle_name = Column(String(30))

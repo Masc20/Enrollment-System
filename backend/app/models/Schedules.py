@@ -6,7 +6,7 @@ from app.db import Base
 class Schedules(Base):
     __tablename__ = "schedules"
 
-    schedule_id = Column(Integer, primary_key=True)
+    schedule_id = Column(Integer, primary_key=True, autoincrement=True)
     days = Column(String(30))
     sched_time = Column(DateTime)
     room_number = Column(String(10))

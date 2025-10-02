@@ -7,7 +7,7 @@ from app.db import Base
 class Subjects(Base):
     __tablename__ = "subjects"
 
-    subject_id = Column(Integer, primary_key=True)
+    subject_id = Column(Integer, primary_key=True, autoincrement=True)
     sub_code = Column(String(10))
     subject_name = Column(String(50))
     sub_type = Column(String(30))  # GenEd, Major, Elective

@@ -6,7 +6,7 @@ from app.db import Base
 class Sections(Base):
     __tablename__ = "sections"
 
-    section_id = Column(Integer, primary_key=True)
+    section_id = Column(Integer, primary_key=True, autoincrement=True)
     section_name = Column(String(30))
     year_level = Column(String(10))
     course_id = Column(Integer, ForeignKey("courses.course_id"))

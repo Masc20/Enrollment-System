@@ -6,7 +6,7 @@ from app.db import Base
 class Payments(Base):
     __tablename__ = "payments"
 
-    payment_id = Column(Integer, primary_key=True)
+    payment_id = Column(Integer, primary_key=True, autoincrement=True)
     amount = Column(Float)
     date_paid = Column(DateTime)
     payment_method = Column(String(30))

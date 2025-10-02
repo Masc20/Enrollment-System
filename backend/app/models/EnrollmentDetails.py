@@ -6,7 +6,7 @@ from app.db import Base
 class EnrollmentDetails(Base):
     __tablename__ = "enrollment_details"
 
-    enroll_detail_id = Column(Integer, primary_key=True)
+    enroll_detail_id = Column(Integer, primary_key=True, autoincrement=True)
     enrollment_id = Column(Integer, ForeignKey("enrollments.enrollment_id"))
     schedule_id = Column(Integer, ForeignKey("schedules.schedule_id"))
 

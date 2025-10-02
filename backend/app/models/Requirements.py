@@ -6,7 +6,7 @@ from app.db import Base
 class Requirements(Base):
     __tablename__ = "requirements"
 
-    req_id = Column(Integer, primary_key=True)
+    req_id = Column(Integer, primary_key=True, autoincrement=True)
     req_name = Column(String(50))
 
     # One-to-Many: one requirement -> many student_requirements

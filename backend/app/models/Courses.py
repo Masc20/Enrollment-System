@@ -6,7 +6,7 @@ from app.db import Base
 class Courses(Base):
     __tablename__ = "courses"
 
-    course_id = Column(Integer, primary_key=True)
+    course_id = Column(Integer, primary_key=True, autoincrement=True)
     course_code = Column(String(10))
     course_name = Column(String(50))
     dept_id = Column(Integer, ForeignKey("departments.dept_id"))

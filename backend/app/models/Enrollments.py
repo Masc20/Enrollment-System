@@ -6,7 +6,7 @@ from app.db import Base
 class Enrollments(Base):
     __tablename__ = "enrollments"
 
-    enrollment_id = Column(Integer, primary_key=True)
+    enrollment_id = Column(Integer, primary_key=True, autoincrement=True)
     academic_year = Column(String(10))
     semester = Column(String(10))
     year_level = Column(String(10))
