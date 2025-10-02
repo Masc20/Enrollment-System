@@ -16,11 +16,11 @@ class Students(Base):
     contact_number = Column(Integer)
     email = Column(String(50), unique=True)
     address = Column(Text)
-    admission_status = Column(String(30))               # old, new, transferee
-    enrollment_status = Column(String(30))              # regular, irregular
+    status = Column(String(30))             # old, new, transferee
+    enrollment_status = Column(String(30))  # regular, irregular
 
     # One-to-Many: one student -> many enrollments
     enrollments = relationship("Enrollments", back_populates="student")
 
-    # One-to-Many: one student -> many student_requirements
-    student_requirements = relationship("StudentRequirements", back_populates="student")
+    # One-to-Many: one student -> many requirements
+    requirements = relationship("StudentRequirements", back_populates="student")

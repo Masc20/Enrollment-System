@@ -3,7 +3,7 @@ from uvicorn import lifespan
 from contextlib import asynccontextmanager
 
 from app.api.v1 import students
-from db import init_db
+from app.db import init_db
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):

@@ -4,13 +4,12 @@ from sqlalchemy.orm import relationship
 from app.db import Base
 
 class Sections(Base):
-    __tablename__ = 'sections'
+    __tablename__ = "sections"
 
     section_id = Column(Integer, primary_key=True)
-    section_name = Column(String(100))
-    year_lever = Column(String(30))
-
-    course_id = Column(Integer, ForeignKey('courses.course_id'))
+    section_name = Column(String(30))
+    year_level = Column(String(10))
+    course_id = Column(Integer, ForeignKey("courses.course_id"))
 
     # Many-to-One: many sections -> one course
     course = relationship("Courses", back_populates="sections")

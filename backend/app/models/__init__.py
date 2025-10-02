@@ -6,4 +6,8 @@ from .Departments import Departments
 from .Subjects import Subjects
 from .Schedules import Schedules
 from .Enrollments import Enrollments
-
+from .EnrollmentDetails import EnrollmentDetails
+from .Requirements import Requirements
+from .StudentRequirements import StudentRequirements
+from .Payments import Payments
+from .Grades import Grades

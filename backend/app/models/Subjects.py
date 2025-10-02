@@ -5,18 +5,16 @@ from app.db import Base
 
 
 class Subjects(Base):
-    __tablename__ = 'subjects'
+    __tablename__ = "subjects"
 
     subject_id = Column(Integer, primary_key=True)
-    subject_code = Column(String(100))
-    subject_name = Column(String(100))
-    subject_type = Column(String(100))      # GenEd, Major, Elective
-    num_units  = Column(Integer)
+    sub_code = Column(String(10))
+    subject_name = Column(String(50))
+    sub_type = Column(String(30))  # GenEd, Major, Elective
+    num_units = Column(Integer)
+    pre_req_id = Column(Integer, ForeignKey("subjects.subject_id"), nullable=True)
 
-    # allow null for those subjects with no prerequisite/s
-    pre_req_id = Column(Integer, ForeignKey("subject.subject_id"), nullable=True)
-
-    # One-to-One or Many: one subject -> one or many prerequisite/s
+    # Self-reference: one subject -> many subjects (prerequisites)
     prerequisite = relationship("Subjects", remote_side=[subject_id])
 
     # One-to-Many: one subject -> many schedules

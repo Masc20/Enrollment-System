@@ -10,10 +10,9 @@ class Enrollments(Base):
     academic_year = Column(String(10))
     semester = Column(String(10))
     year_level = Column(String(10))
-
-    student_id = Column(Integer, ForeignKey("student.student_id"))
-    section_id = Column(Integer, ForeignKey("section.section_id"), nullable=True)
-    course_id = Column(Integer, ForeignKey("course.course_id"))
+    student_id = Column(Integer, ForeignKey("students.student_id"))
+    section_id = Column(Integer, ForeignKey("sections.section_id"), nullable=True)
+    course_id = Column(Integer, ForeignKey("courses.course_id"))
 
     # Many-to-One: many enrollments -> one student
     student = relationship("Students", back_populates="enrollments")
