@@ -6,10 +6,10 @@ CREATE TABLE "Student" (
   "last_name" varchar(30),
   "birth_date" date,
   "gender" varchar(30),
-  "contact_number" varchar(15),
+  "contact_number" int(12),
   "email" varchar(50),
   "address" text,
-  "admission_status" varchar(30),
+  "student_type" varchar(30),
   "enrollment_status" varchar(30)
 );
 
@@ -17,7 +17,7 @@ CREATE TABLE "Teacher" (
   "teacher_id" int PRIMARY KEY,
   "first_name" varchar(30),
   "last_name" varchar(30),
-  "contact_number" varchar(15),
+  "contact_number" int(12),
   "email" varchar(50)
 );
 
