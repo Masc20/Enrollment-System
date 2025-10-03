@@ -1,5 +1,5 @@
 
-
+uvicorn app.main:app --reload
 
 
 When change models (add/remove column, new table):

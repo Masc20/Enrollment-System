@@ -9,7 +9,7 @@ class Teachers(Base):
     teacher_id = Column(Integer, primary_key=True, autoincrement=True)
     first_name = Column(String(30))
     last_name = Column(String(30))
-    contact_number = Column(Integer)
+    contact_number = Column(String(15))
     email = Column(String(50), unique=True)
 
     # One-to-Many: one teacher -> many schedules
