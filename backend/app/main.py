@@ -20,8 +20,6 @@ app.include_router(courses_api.router, prefix="/courses", tags=["courses"])
 app.include_router(departments_api.router, prefix="/departments", tags=["departments"])
 app.include_router(enrollment_api.router, prefix="/enrollments", tags=["enrollments"])
 
-# app.include_router(enrollment.router, prefix="/enrollment", tags=["enrollment"])
-
 @app.get("/")
 async def root():
     return {"message": "Welcome to the Enrollment System"}
