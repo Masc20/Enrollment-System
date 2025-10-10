@@ -1,6 +1,5 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
-
 from app.db import Base
 
 class Sections(Base):
@@ -11,6 +10,7 @@ class Sections(Base):
     year_level = Column(String(10))
     course_id = Column(Integer, ForeignKey("courses.course_id"))
 
+    # Relationships
     # Many-to-One: many sections -> one course
     course = relationship("Courses", back_populates="sections")
 
@@ -19,3 +19,8 @@ class Sections(Base):
 
     # One-to-Many: one section -> many enrollments
     enrollments = relationship("Enrollments", back_populates="section")
+
+    def __repr__(self):
+        return f"<Section(name={self.section_name}, year_level={self.year_level})>"
+
+

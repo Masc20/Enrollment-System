@@ -22,6 +22,11 @@ class SectionOut(SectionBase):
     class Config:
         from_attributes = True
 
+class EnrolledSectionOut(SectionBase):
+    section_id: int
+    section_name : str
+
+
 class PaginatedSections(BaseModel):
     page: int
     limit: int

@@ -65,4 +65,12 @@ async def get_all_section(
         limit: int = None
 ):
 
-    return await paginate_query(db, Sections, page=page, limit=limit, options=[selectinload(Sections.course)])
+    return await paginate_query(
+        db,
+        Sections,
+        page=page,
+        limit=limit,
+        options=[
+            selectinload(Sections.course)
+        ]
+    )

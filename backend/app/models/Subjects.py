@@ -1,8 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
-
 from app.db import Base
-
 
 class Subjects(Base):
     __tablename__ = "subjects"
@@ -14,8 +12,11 @@ class Subjects(Base):
     num_units = Column(Integer)
     pre_req_id = Column(Integer, ForeignKey("subjects.subject_id"), nullable=True)
 
-    # Self-reference: one subject -> many subjects (prerequisites)
+    # Self-referential relationship (prerequisite)
     prerequisite = relationship("Subjects", remote_side=[subject_id])
 
     # One-to-Many: one subject -> many schedules
     schedules = relationship("Schedules", back_populates="subject")
+
+    def __repr__(self):
+        return f"<Subject(code={self.sub_code}, name={self.subject_name})>"

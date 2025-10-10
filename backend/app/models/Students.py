@@ -24,3 +24,6 @@ class Students(Base):
 
     # One-to-Many: one student -> many requirements
     requirements = relationship("StudentRequirements", back_populates="student")
+
+    def __repr__(self):
+        return f"<Student(name={self.first_name} {self.last_name})>"

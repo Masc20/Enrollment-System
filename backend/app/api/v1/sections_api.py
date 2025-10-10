@@ -33,7 +33,7 @@ async def get_sections(
         db: AsyncSession = Depends(get_db),
         page: int = 1,
         limit: int = Query(
-            default=None,
+            default=settings.DEFAULT_PAGE_LIMIT,
             le=settings.MAX_PAGE_LIMIT)
 ) -> dict[str, Sections]:
 

@@ -11,3 +11,6 @@ class Requirements(Base):
 
     # One-to-Many: one requirement -> many student_requirements
     student_requirements = relationship("StudentRequirements", back_populates="requirement")
+
+    def __repr__(self):
+        return f"<Requirement(name={self.req_name})>"

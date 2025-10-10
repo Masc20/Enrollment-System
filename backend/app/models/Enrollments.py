@@ -14,17 +14,41 @@ class Enrollments(Base):
     section_id = Column(Integer, ForeignKey("sections.section_id"), nullable=True)
     course_id = Column(Integer, ForeignKey("courses.course_id"))
 
+    # --- Relationships ---
     # Many-to-One: many enrollments -> one student
-    student = relationship("Students", back_populates="enrollments")
+    student = relationship(
+        "Students",
+        back_populates="enrollments",
+        lazy="selectin"   # ✅ async-safe eager loading
+    )
 
     # Many-to-One: many enrollments -> one section
-    section = relationship("Sections", back_populates="enrollments")
+    section = relationship(
+        "Sections",
+        back_populates="enrollments",
+        lazy="selectin"
+    )
 
     # Many-to-One: many enrollments -> one course
-    course = relationship("Courses", back_populates="enrollments")
+    course = relationship(
+        "Courses",
+        back_populates="enrollments",
+        lazy="selectin"
+    )
 
     # One-to-Many: one enrollment -> many enrollment_details
-    enrollment_details = relationship("EnrollmentDetails", back_populates="enrollment")
+    enrollment_details = relationship(
+        "EnrollmentDetails",
+        back_populates="enrollment",
+        lazy="selectin"
+    )
 
     # One-to-Many: one enrollment -> many payments
-    payments = relationship("Payments", back_populates="enrollment")
+    payments = relationship(
+        "Payments",
+        back_populates="enrollment",
+        lazy="selectin"
+    )
+
+    def __repr__(self):
+        return f"<Enrollment(year={self.academic_year}, sem={self.semester})>"

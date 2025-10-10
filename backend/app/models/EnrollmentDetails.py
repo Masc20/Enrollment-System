@@ -18,3 +18,6 @@ class EnrollmentDetails(Base):
 
     # One-to-Many: one enrollment_detail -> many grades
     grades = relationship("Grades", back_populates="enrollment_detail")
+
+    def __repr__(self):
+        return f"<EnrollmentDetail(id={self.enroll_detail_id})>"

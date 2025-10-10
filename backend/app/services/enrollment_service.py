@@ -5,13 +5,14 @@ from sqlalchemy.orm import selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models import Enrollments, Courses, Sections, Students
+from app.schemas.enrollment_schema import EnrollmentCreate
 from app.utils.pagination import paginate_query
 
 
 async def create_enrollment(
     db: AsyncSession,
-    new_enrollment: Enrollments
-) -> Enrollments:
+    new_enrollment: EnrollmentCreate
+):
 
     if new_enrollment.course_id:
         result = await db.execute(select(Courses).where(Courses.course_id == new_enrollment.course_id))

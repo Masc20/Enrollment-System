@@ -14,3 +14,6 @@ class Teachers(Base):
 
     # One-to-Many: one teacher -> many schedules
     schedules = relationship("Schedules", back_populates="teacher")
+
+    def __repr__(self):
+        return f"<Teacher(name={self.first_name} {self.last_name})>"

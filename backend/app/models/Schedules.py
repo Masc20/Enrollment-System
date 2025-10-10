@@ -25,3 +25,6 @@ class Schedules(Base):
 
     # One-to-Many: one schedule -> many enrollment_details
     enrollment_details = relationship("EnrollmentDetails", back_populates="schedule")
+
+    def __repr__(self):
+        return f"<Schedule(id={self.schedule_id}, room={self.room_number})>"

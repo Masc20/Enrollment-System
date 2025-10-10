@@ -88,7 +88,12 @@ async def list_students(
         limit: int = None
 ):
 
-    return await paginate_query(db, Students, page=page, limit=limit)
+    return await paginate_query(
+        db,
+        Students,
+        page=page,
+        limit=limit
+    )
 
 async def get_student_by_id(
         db: AsyncSession,

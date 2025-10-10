@@ -39,10 +39,6 @@ class StudentUpdate(BaseModel):
     admission_status: Optional[str] = None
     enrollment_status: Optional[str] = None
 
-
-# TO DO:
-# create an authentication for the enrolled
-# students so that the can update/remove info
 class StudentAuth(StudentBase):
     pass
 
@@ -53,9 +49,6 @@ class StudentOut(StudentBase):
     class Config:
         from_attributes = True
 
-class FullStudentInformation(StudentOut):
-    sections: SectionOut
-
 class PaginatedStudents(BaseModel):
     page: int
     limit: int
@@ -63,6 +56,11 @@ class PaginatedStudents(BaseModel):
     total_pages: int
     students: list[StudentOut]
 
+class EnrolledStudentOut(BaseModel):
+    student_id: int
+    student_number: str
 
 # TO DO:
+# create an authentication for the enrolled
+# students so that the can update/remove info
 # add a with the student and its related infos

@@ -15,3 +15,6 @@ class Payments(Base):
 
     # Many-to-One: many payments -> one enrollment
     enrollment = relationship("Enrollments", back_populates="payments")
+
+    def __repr__(self):
+        return f"<Payment(amount={self.amount}, method={self.payment_method})>"

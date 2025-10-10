@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, status, Query
+from fastapi import APIRouter, Depends, status
 
 from app.db import get_db
 
@@ -13,7 +13,7 @@ router = APIRouter()
 @router.get("/", response_model=list[DepartmentOut])
 async def departments(
         db: AsyncSession = Depends(get_db)
-) -> list[Departments]:
+):
 
     return await get_departments(db)
 
@@ -21,6 +21,6 @@ async def departments(
 async def new_department(
         department: DepartmentCreate,
         db: AsyncSession = Depends(get_db)
-) -> Departments:
+):
 
     return await create_dept(db, department)
