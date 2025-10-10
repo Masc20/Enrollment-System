@@ -2,6 +2,8 @@ from pydantic import BaseModel, EmailStr
 from typing import Optional
 from datetime import date
 
+from .section_schema import SectionOut
+
 
 # Shared properties
 class StudentBase(BaseModel):
@@ -51,6 +53,8 @@ class StudentOut(StudentBase):
     class Config:
         from_attributes = True
 
+class FullStudentInformation(StudentOut):
+    sections: SectionOut
 
 class PaginatedStudents(BaseModel):
     page: int

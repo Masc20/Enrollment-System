@@ -4,26 +4,44 @@ from sqlalchemy import Sequence
 from sqlalchemy.future import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.models import Departments
+from app.utils.pagination import paginate_query
 
 # Model/s
 from app.models.Courses import Courses
+from app.models import Departments
+
 
 # Schema/s
-from app.schemas.course_sch import CourseCreate
+from app.schemas.course_schema import CourseCreate
 
-async def get_courses(db: AsyncSession) -> Sequence[Courses]:
-    result = await db.execute(select(Courses))
-    return result.scalars().all()
+async def get_courses(
+        db: AsyncSession,
+        page: int = 1,
+        limit: int = None,
+):
 
-async def get_course(db: AsyncSession, course_id: int) -> Courses:
+   return paginate_query(
+       db,
+       Courses,
+       page=page,
+       limit=limit,
+   )
+
+async def get_course(
+        db: AsyncSession,
+        course_id: int
+) -> Courses:
+
     result = await db.execute(select(Courses).where(Courses.course_id == course_id))
     course = result.scalar_one_or_none()
     if not course:
         raise HTTPException(status_code=404, detail="Course not found")
     return course
 
-async def create_course(db: AsyncSession, course: CourseCreate) -> Courses:
+async def create_course(
+        db: AsyncSession,
+        course: CourseCreate
+) -> Courses:
 
     if course.dept_id:
         dept_id = course.dept_id

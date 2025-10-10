@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 from typing import Optional
 
-from .course_sch import CourseOut
+from .course_schema import CourseOut
 
 
 class SectionBase(BaseModel):

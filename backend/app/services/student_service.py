@@ -2,16 +2,23 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
 from fastapi import HTTPException
+from sqlalchemy.orm import selectinload
 
+from app.models import Sections, Enrollments
+from app.schemas.section_schema import SectionOut
 from app.utils.pagination import paginate_query
 
 # Model/s
 from app.models.Students import Students
 
 # Schema/s
-from app.schemas.student_sch import StudentCreate, StudentUpdate
+from app.schemas.student_schema import StudentCreate, StudentUpdate
 
-async def create_student(db: AsyncSession, student: StudentCreate) -> Students:
+async def create_student(
+        db: AsyncSession,
+        student: StudentCreate
+) -> Students:
+
     result = await db.execute(select(Students).where(Students.student_number == student.student_number))
     existing_student = result.scalar_one_or_none()
 
@@ -38,7 +45,12 @@ async def create_student(db: AsyncSession, student: StudentCreate) -> Students:
     await db.refresh(db_student)
     return db_student
 
-async def update_student_partial(db: AsyncSession, student_id: int, student: StudentUpdate) -> Students:
+async def update_student_partial(
+        db: AsyncSession,
+        student_id: int,
+        student: StudentUpdate
+) -> Students:
+
     result = await db.execute(select(Students).where(Students.student_id == student_id))
     db_student = result.scalar_one_or_none()
 
@@ -54,7 +66,11 @@ async def update_student_partial(db: AsyncSession, student_id: int, student: Stu
     await db.refresh(db_student)
     return db_student
 
-async def delete_student(db: AsyncSession, student_id: int):
+async def delete_student(
+        db: AsyncSession,
+        student_id: int
+):
+
     result = await db.execute(select(Students).where(Students.student_id == student_id))
     db_student = result.scalar_one_or_none()
 
@@ -66,10 +82,19 @@ async def delete_student(db: AsyncSession, student_id: int):
     await db.commit()
     return {"detail": f"Student with id {student_id} deleted successfully"}
 
-async def list_students(db: AsyncSession, page: int = 1, limit: int = None) -> Students:
+async def list_students(
+        db: AsyncSession,
+        page: int = 1,
+        limit: int = None
+):
+
     return await paginate_query(db, Students, page=page, limit=limit)
 
-async def get_student_by_id(db: AsyncSession, student_id: int) -> Students:
+async def get_student_by_id(
+        db: AsyncSession,
+        student_id: int
+) -> Students:
+
     result = await db.execute(select(Students).where(Students.student_id == student_id))
     student = result.scalar_one_or_none()  # ✅ returns single object or None
 

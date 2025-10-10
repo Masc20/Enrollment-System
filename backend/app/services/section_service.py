@@ -10,9 +10,12 @@ from app.models.Courses import Courses
 from app.models.Sections import Sections
 
 # Schema/s
-from app.schemas.section_sch import SectionCreate
+from app.schemas.section_schema import SectionCreate
 
-async def create_section(db: AsyncSession, section: SectionCreate) -> Sections:
+async def create_section(
+        db: AsyncSession,
+        section: SectionCreate
+) -> Sections:
 
     if section.course_id:
         course_id = section.course_id
@@ -44,7 +47,11 @@ async def create_section(db: AsyncSession, section: SectionCreate) -> Sections:
     await db.refresh(db_section)
     return db_section
 
-async def get_section(db: AsyncSession, section_id: int) -> Sections:
+async def get_section(
+        db: AsyncSession,
+        section_id: int
+) -> Sections:
+
     result = await db.execute(select(Sections).where(Sections.section_id == section_id).options(selectinload(Sections.course)))
     section = result.scalar_one_or_none()
     print(section_id)
@@ -52,5 +59,10 @@ async def get_section(db: AsyncSession, section_id: int) -> Sections:
         raise HTTPException(status_code=404, detail="Section not found")
     return section
 
-async def get_all_section(db: AsyncSession, page: int = 1, limit: int = None) -> Sections:
+async def get_all_section(
+        db: AsyncSession,
+        page: int = 1,
+        limit: int = None
+):
+
     return await paginate_query(db, Sections, page=page, limit=limit, options=[selectinload(Sections.course)])
