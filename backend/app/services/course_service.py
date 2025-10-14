@@ -20,12 +20,15 @@ async def get_courses(
         limit: int = None,
 ):
 
-   return paginate_query(
-       db,
-       Courses,
-       page=page,
-       limit=limit,
-   )
+    return await paginate_query(
+        db,
+        Courses,
+        page=page,
+        limit=limit,
+        options=[
+            selectinload(Courses.department)
+        ],
+    )
 
 async def get_course(
         db: AsyncSession,
