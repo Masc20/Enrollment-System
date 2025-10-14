@@ -21,7 +21,6 @@ async def courses(
 ) -> dict[str, Courses]:
 
     data = await get_courses(db, page=page, limit=limit)
-    print("Debug: hello api")
     return {
         "page": data["page"],
         "limit": data["limit"],
@@ -30,12 +29,12 @@ async def courses(
         "courses": data["items"],
     }
 
-@router.get("/{student_id}", response_model=CourseOut)
+@router.get("/{course_id}", response_model=CourseOut)
 async def course(
-        student_id: int,
+        course_id: int,
         db: AsyncSession = Depends(get_db),
 ) -> Courses:
-    return await get_course(db, student_id)
+    return await get_course(db, course_id)
 
 @router.post("/new_course", response_model=CourseOut, status_code=status.HTTP_201_CREATED)
 async def new_course(

@@ -41,7 +41,7 @@ async def paginate_query(
     """
     limit = limit or settings.DEFAULT_PAGE_LIMIT
     offset = (page - 1) * limit
-    print("Debug: hello pagination")
+
     stmt = select(model).offset(offset).limit(limit)
 
     # 🔄 Automatically include relationships recursively

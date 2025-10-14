@@ -32,6 +32,5 @@ app.include_router(enrollment_api.router, prefix="/enrollments", tags=["enrollme
 
 @app.get("/")
 async def root():
-    print("Hello main")
     return {"message": "Welcome to the Enrollment System"}
 

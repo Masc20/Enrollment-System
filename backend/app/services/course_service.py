@@ -1,5 +1,4 @@
 from fastapi import HTTPException
-from sqlalchemy import Sequence
 from sqlalchemy.orm import selectinload
 from sqlalchemy.future import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -35,7 +34,7 @@ async def get_course(
         course_id: int
 ) -> Courses:
 
-    result = await db.execute(select(Courses).where(Courses.course_id == course_id))
+    result = await db.execute(select(Courses).where(Courses.course_id == course_id).options(selectinload(Courses.department)))
     course = result.scalar_one_or_none()
     if not course:
         raise HTTPException(status_code=404, detail="Course not found")

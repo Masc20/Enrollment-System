@@ -20,14 +20,22 @@ async def create_section(
     if section.course_id:
         course_id = section.course_id
         # validate course exists
-        result = await db.execute(select(Courses).where(Courses.course_id == course_id))
+        result = await db.execute(
+            select(Courses)
+            .where(Courses.course_id == course_id)
+        )
+
         course = result.scalar_one_or_none()
         if not course:
             raise HTTPException(status_code=404, detail="Course not found")
 
     elif section.course_code:
         # lookup by code
-        result = await db.execute(select(Courses).where(Courses.course_code == section.course_code))
+        result = await db.execute(
+            select(Courses)
+            .where(Courses.course_code == section.course_code)
+        )
+
         course = result.scalar_one_or_none()
         if not course:
             raise HTTPException(status_code=404, detail="Course not found")
@@ -52,9 +60,14 @@ async def get_section(
         section_id: int
 ) -> Sections:
 
-    result = await db.execute(select(Sections).where(Sections.section_id == section_id).options(selectinload(Sections.course)))
+    result = await db.execute(
+        select(Sections)
+        .where(Sections.section_id == section_id)
+        .options(selectinload(Sections.course))
+    )
+    
     section = result.scalar_one_or_none()
-    print(section_id)
+
     if not section:
         raise HTTPException(status_code=404, detail="Section not found")
     return section
