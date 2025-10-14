@@ -2,16 +2,26 @@ from fastapi import FastAPI
 from contextlib import asynccontextmanager
 
 from app.api.v1 import students_api, sections_api, courses_api, departments_api, enrollment_api
-from app.db import init_db
+from app.db import init_db, engine
+
+import logging
+
+logger = logging.getLogger(__name__)
 
 @asynccontextmanager
-async def lifespan(apps: FastAPI):
-    # Startup
-    await init_db()
-    yield
-    # Shutdown (if needed, e.g., close connections)
+async def lifespan(app: FastAPI):
+    try:
+        logger.info("Starting up...")
+        await init_db()
+        yield
+    finally:
+        logger.info("Shutting down...")
+        await engine.dispose()
 
-app = FastAPI(title="Enrollment System API", lifespan=lifespan)
+app = FastAPI(
+    title="Enrollment System API",
+    debug=True, 
+    lifespan=lifespan)
 
 # Register routers
 app.include_router(students_api.router, prefix="/students", tags=["students"])
@@ -22,5 +32,6 @@ app.include_router(enrollment_api.router, prefix="/enrollments", tags=["enrollme
 
 @app.get("/")
 async def root():
+    print("Hello main")
     return {"message": "Welcome to the Enrollment System"}
 

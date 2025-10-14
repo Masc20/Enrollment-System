@@ -2,9 +2,9 @@ from pydantic import BaseModel
 
 from typing import Optional
 
-from app.schemas.student_schema import EnrolledStudentOut
-from app.schemas.section_schema import EnrolledSectionOut
-from app.schemas.course_schema import CourseOut
+from .student_schema import EnrolledStudentOut
+from .section_schema import EnrolledSectionOut
+from .course_schema import CourseOut
 
 
 class EnrollmentBase(BaseModel):

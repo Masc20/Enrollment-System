@@ -1,13 +1,13 @@
 from fastapi import HTTPException
 from sqlalchemy import Sequence
-
+from sqlalchemy.orm import selectinload
 from sqlalchemy.future import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.utils.pagination import paginate_query
 
 # Model/s
-from app.models.Courses import Courses
+from app.models import Courses
 from app.models import Departments
 
 
@@ -19,7 +19,7 @@ async def get_courses(
         page: int = 1,
         limit: int = None,
 ):
-
+    print("Debug: hello service")
     return await paginate_query(
         db,
         Courses,

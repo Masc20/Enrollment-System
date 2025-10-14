@@ -21,7 +21,7 @@ async def courses(
 ) -> dict[str, Courses]:
 
     data = await get_courses(db, page=page, limit=limit)
-    
+    print("Debug: hello api")
     return {
         "page": data["page"],
         "limit": data["limit"],
