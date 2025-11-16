@@ -1,6 +1,6 @@
 from math import ceil
 from typing import Any
-from sqlalchemy import select, func, inspect
+from sqlalchemy import select, func, inspect, desc
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 from app.config import settings
@@ -33,16 +33,25 @@ async def paginate_query(
         limit: int = None,
         options: list[Any] = None,
         auto_load_relationships: bool = True,
-        max_depth: int = 2
+        max_depth: int = 2,
+        order_by_desc: bool = True  # <-- new parameter
 ) -> dict[str, Any]:
     """
     Generic pagination helper for any SQLAlchemy model.
     Automatically loads nested relationships up to `max_depth` levels deep.
+    Supports optional descending order by primary key.
     """
     limit = limit or settings.DEFAULT_PAGE_LIMIT
     offset = (page - 1) * limit
 
-    stmt = select(model).offset(offset).limit(limit)
+    # Determine primary key column
+    pk_column = inspect(model).primary_key[0]
+
+    # Apply ordering
+    if order_by_desc:
+        stmt = select(model).order_by(desc(pk_column)).offset(offset).limit(limit)
+    else:
+        stmt = select(model).order_by(pk_column).offset(offset).limit(limit)
 
     # 🔄 Automatically include relationships recursively
     if auto_load_relationships:

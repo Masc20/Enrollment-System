@@ -11,4 +11,5 @@ class RequirementUpdate(RequirementBase):
 
 class RequirementOut(RequirementBase):
     req_id: int
+    req_name: str
     model_config = ConfigDict(from_attributes=True)

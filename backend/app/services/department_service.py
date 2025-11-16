@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-from sqlalchemy import Sequence
+from sqlalchemy import Sequence, desc
 
 from sqlalchemy.future import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -13,7 +13,7 @@ async def get_departments(
         db: AsyncSession
 ) -> Sequence[Departments]:
 
-    result = await db.execute(select(Departments))
+    result = await db.execute(select(Departments).order_by(desc(Departments.dept_id)))
     return result.scalars().all()
 
 async def get_department(

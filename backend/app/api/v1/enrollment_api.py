@@ -40,3 +40,11 @@ async def enrollments(
         "total_pages": data["total_pages"],
         "enrollments": data["items"],
     }
+
+@router.put("/{enrollment_id}", response_model=EnrollmentOut)
+async def update_enrollment_route(
+    enrollment_id: int,
+    update_data: EnrollmentUpdate,
+    db: AsyncSession = Depends(get_db)
+):
+    return await update_enrollment(db, enrollment_id, update_data)

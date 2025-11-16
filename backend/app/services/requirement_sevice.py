@@ -8,7 +8,7 @@ from app.models.Requirements import Requirements
 from app.schemas.requirement_schema import *
 
 
-async def get_all_requiments (db: AsyncSession) -> Sequence[Requirements]:
+async def get_all_requiments (db: AsyncSession):
     result = await db.execute(select(Requirements))
     requirements = result.scalars().all()
     if not requirements:
@@ -26,7 +26,7 @@ async def get_requirement (db: AsyncSession, requirement_id: int):
 async def add_new_requirements(
         db: AsyncSession,
         new_requirements: RequirementCreate
-        ) -> Requirements:
+):
     result = await db.execute(
         select(Requirements)
         .where(Requirements.req_name == new_requirements.req_name))
@@ -48,12 +48,13 @@ async def add_new_requirements(
 
 async def update_requirement(
         db: AsyncSession,
+        requirement_id: int,
         update_requirements: RequirementUpdate
         ) -> Requirements:
 
     result = await db.execute(
         select(Requirements)
-        .where(Requirements.req_name == update_requirements.req_name))
+        .where(Requirements.req_id == requirement_id))
     
     db_requirements = result.scalar_one_or_none()
 

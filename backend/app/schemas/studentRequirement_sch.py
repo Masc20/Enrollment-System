@@ -12,7 +12,7 @@ class StudentRequirementCreate(BaseModel):
     status: str = "not submitted"   # default
     date_submitted: Optional[date] = None
     stud_id: int
-    stud_req_id: int
+    req_id: int
 
 class StudentRequirementUpdate(BaseModel):
     status: str = "submitted"
