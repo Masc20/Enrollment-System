@@ -21,6 +21,23 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="Enrollment System API",
+    description="""
+# 📘 Enrollment System API  
+Welcome to the **Enrollment System** backend service.
+
+This API provides:
+- 👨‍🎓 Student Management  
+- 🏫 Course & Departments  
+- 📚 Enrollment Processing  
+
+---
+
+### 🔧 Tech Used:
+- FastAPI  
+- SQLAlchemy Async  
+- PostgreSQL  
+- Pytest for testing  
+""",
     debug=True, 
     lifespan=lifespan
 )

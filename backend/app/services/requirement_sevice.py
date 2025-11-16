@@ -15,6 +15,14 @@ async def get_all_requiments (db: AsyncSession) -> Sequence[Requirements]:
         raise HTTPException(status_code=404, detail="No Requirement/s set")
     return requirements
 
+
+async def get_requirement (db: AsyncSession, requirement_id: int):
+    result = await db.execute(select(Requirements).where(Requirements.req_id == requirement_id))
+    requirement = result.scalar_one_or_none
+    if not requirement:
+        raise HTTPException(status_code=404, detail="Requirement Not found")
+    return requirement
+
 async def add_new_requirements(
         db: AsyncSession,
         new_requirements: RequirementCreate

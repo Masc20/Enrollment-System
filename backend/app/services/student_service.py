@@ -94,10 +94,10 @@ async def list_students(
 
 async def get_student_by_id(
         db: AsyncSession,
-        student_id: int
+        student_number: int
 ) -> Students:
 
-    result = await db.execute(select(Students).where(Students.student_id == student_id))
+    result = await db.execute(select(Students).where(Students.student_number == student_number))
     student = result.scalar_one_or_none()  # ✅ returns single object or None
 
     if not student:
