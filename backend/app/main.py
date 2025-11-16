@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.v1 import students_api, sections_api, courses_api, departments_api, enrollment_api
 from app.db import init_db, engine
@@ -21,9 +22,29 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="Enrollment System API",
     debug=True, 
-    lifespan=lifespan)
+    lifespan=lifespan
+)
 
-# Register routers
+# -----------------------------------------
+# ✅ Enable CORS Here
+# -----------------------------------------
+origins = [
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "http://localhost:8080",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# -----------------------------------------
+# Register Routers
+# -----------------------------------------
 app.include_router(students_api.router, prefix="/students", tags=["students"])
 app.include_router(sections_api.router, prefix="/sections", tags=["sections"])
 app.include_router(courses_api.router, prefix="/courses", tags=["courses"])
@@ -33,4 +54,3 @@ app.include_router(enrollment_api.router, prefix="/enrollments", tags=["enrollme
 @app.get("/")
 async def root():
     return {"message": "Welcome to the Enrollment System"}
-
