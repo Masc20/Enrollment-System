@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, ConfigDict
 from typing import Optional
 from datetime import date
 
@@ -59,6 +59,7 @@ class PaginatedStudents(BaseModel):
 class EnrolledStudentOut(BaseModel):
     student_id: int
     student_number: str
+    model_config = ConfigDict(from_attributes=True)
 
 # TO DO:
 # create an authentication for the enrolled

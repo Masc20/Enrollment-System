@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from typing import Optional
 
@@ -19,9 +19,7 @@ class CourseUpdate(CourseBase):
 class CourseOut(CourseBase):
     course_id: int
     department: DepartmentOut
-
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class PaginatedCourses(BaseModel):
     page: int

@@ -2,10 +2,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
 from fastapi import HTTPException
-from sqlalchemy.orm import selectinload
 
-from app.models import Sections, Enrollments
-from app.schemas.section_schema import SectionOut
 from app.utils.pagination import paginate_query
 
 # Model/s

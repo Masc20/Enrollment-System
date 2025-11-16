@@ -18,7 +18,7 @@ async def get_courses(
         page: int = 1,
         limit: int = None,
 ):
-    print("Debug: hello service")
+    
     return await paginate_query(
         db,
         Courses,
@@ -65,9 +65,9 @@ async def create_course(
         raise HTTPException(status_code=400, detail="Either dept_id or dept_name is required")
 
     db_course = Courses(
-        course_name= course.course_name,
-        course_code= course.course_code,
-        dept_id= dept_id,
+        course_name = course.course_name,
+        course_code = course.course_code,
+        dept_id = dept_id,
     )
 
     db.add(db_course)
