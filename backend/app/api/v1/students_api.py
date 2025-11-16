@@ -63,9 +63,9 @@ async def get_students(
         "students": data["items"],
     }
 
-@router.get("/{student_id}", response_model=StudentOut)
+@router.get("/{student_number}", response_model=StudentOut)
 async def get_student(
-        student_id: int,
+        student_number: str,
         db: AsyncSession = Depends(get_db)
 ) -> Students:
-    return await get_student_by_id(db, student_id)
+    return await get_student_by_id(db, student_number)

@@ -94,7 +94,7 @@ async def list_students(
 
 async def get_student_by_id(
         db: AsyncSession,
-        student_number: int
+        student_number: str
 ) -> Students:
 
     result = await db.execute(select(Students).where(Students.student_number == student_number))
