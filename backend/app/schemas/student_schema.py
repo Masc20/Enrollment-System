@@ -14,8 +14,9 @@ class StudentBase(BaseModel):
     contact_number: Optional[str] = "No Number Set"
     email: EmailStr
     address: Optional[str]
-    admission_status: Optional[str] = "new"               # default{new}, old, transferee
+    admission_status: Optional[str] = "pending"       # default {pending}, approved, denied
     enrollment_status: str              # regular, irregular
+    student_type: Optional[str] = "new"     # default {new}, old, transferee
 
 
 # For creating a student (no ID yet)

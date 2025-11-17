@@ -35,6 +35,7 @@ async def create_student(
         address=student.address,
         admission_status=student.admission_status,
         enrollment_status=student.enrollment_status,
+        student_type=student.student_type,
     )
 
     db.add(db_student)
