@@ -11,6 +11,7 @@ class Teachers(Base):
     last_name = Column(String(30))
     contact_number = Column(String(15))
     email = Column(String(50), unique=True)
+    specialization = Column(String(50))
 
     # One-to-Many: one teacher -> many schedules
     schedules = relationship("Schedules", back_populates="teacher")
