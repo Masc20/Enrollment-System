@@ -17,9 +17,9 @@ class Students(Base):
     contact_number = Column(String(15))
     email = Column(String(50), unique=True)
     address = Column(Text)
-    admission_status = Column(Enum(AdmissionStatus))        # pending, approved, denied
-    enrollment_status = Column(Enum(EnrollmentStatus))      # regular, irregular
-    student_type = Column(Enum(StudentType))                # old, new, transferee
+    admission_status = Column(Enum(AdmissionStatus), nullable=False, name="admissionstatus")        # pending, approved, denied
+    enrollment_status = Column(Enum(EnrollmentStatus), nullable=False, name="enrollmentstatus")      # regular, irregular
+    student_type = Column(Enum(StudentType), nullable=False, name="studenttype")                # old, new, transferee
 
     # One-to-Many: one student -> many enrollments
     enrollments = relationship("Enrollments", back_populates="student")

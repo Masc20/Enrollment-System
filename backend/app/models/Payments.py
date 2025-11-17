@@ -10,7 +10,7 @@ class Payments(Base):
     payment_id = Column(Integer, primary_key=True, autoincrement=True)
     amount = Column(Float)
     date_paid = Column(DateTime)
-    payment_method = Column(Enum(PaymentMethod))
+    payment_method = Column(Enum(PaymentMethod), nullable=False, name="paymentmethods")
     remarks = Column(Text)
     enrollment_id = Column(Integer, ForeignKey("enrollments.enrollment_id"))
 
