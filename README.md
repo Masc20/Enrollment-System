@@ -37,6 +37,7 @@ enrollment-system/
 │   │   ├── models/           # SQLAlchemy database models
 │   │   ├── schemas/          # Pydantic validation schemas
 │   │   ├── services/         # Business logic
+│   │   ├── utils/            # Utility 
 │   │   ├── db.py             # Async database connection
 │   │   └── config.py         # Configuration and environment variables
 │   ├── alembic/              # Database migrations (Alembic)
@@ -61,7 +62,8 @@ cd enrollment-system
 -  **Create virtual environment**
 ```
 python -m venv venv
-source venv/bin/activate   # On Windows: venv\Scripts\activate
+# On Linux: source venv/bin/activate   
+# On Windows: venv\Scripts\activate
 ```
 -  **Install dependencies**
 ```
@@ -69,14 +71,23 @@ pip install -r requirements.txt
 ```
 -  **Example requirements.txt**
 ```
+pydantic-settings
 fastapi
-uvicorn[standard]
-sqlalchemy>=2.0
+uvicorn
+sqlalchemy
 asyncpg
 alembic
+psycopg2-binary
 pydantic
 python-dotenv
 pytest
+pytest-asyncio
+httpx
+authlib
+passlib
+argon2-cffi
+python-multipart
+email-validator
 ```
 -  **Run server**
 ```
