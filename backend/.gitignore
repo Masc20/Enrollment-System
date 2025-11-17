@@ -36,7 +36,7 @@ share/python-wheels/
 *.swp
 
 # Alembic
-alembic/versions/*.pyc
+alembic/versions/*.py
 alembic/__pycache__/
 
 # Logs
