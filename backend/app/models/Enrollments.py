@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Enum
+from sqlalchemy import Column, Integer, String, ForeignKey, Enum, text
 from sqlalchemy.orm import relationship
 
 from app.db import Base
@@ -9,8 +9,8 @@ class Enrollments(Base):
 
     enrollment_id = Column(Integer, primary_key=True, autoincrement=True)
     academic_year = Column(String(10))
-    semester = Column(Enum(Semesters), nullable=False, name="semesters")
-    year_level = Column(Enum(YearLevel), nullable=False, name="yearlevel")
+    semester = Column(Enum(Semesters, name="semesters"), nullable=False, default=Semesters.FIRST_SEM)
+    year_level = Column(Enum(YearLevel, name="yearlevel"), nullable=False, default=YearLevel.FIRST)
     student_id = Column(Integer, ForeignKey("students.student_id"))
     section_id = Column(Integer, ForeignKey("sections.section_id"), nullable=True)
     course_id = Column(Integer, ForeignKey("courses.course_id"))

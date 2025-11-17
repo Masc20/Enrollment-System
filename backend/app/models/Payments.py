@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, DateTime, Text, ForeignKey, Enum
+from sqlalchemy import Column, Integer, Float, DateTime, Text, ForeignKey, Enum, text
 from sqlalchemy.orm import relationship
 
 from app.db import Base
@@ -10,7 +10,7 @@ class Payments(Base):
     payment_id = Column(Integer, primary_key=True, autoincrement=True)
     amount = Column(Float)
     date_paid = Column(DateTime)
-    payment_method = Column(Enum(PaymentMethod), nullable=False, name="paymentmethods")
+    payment_method = Column(Enum(PaymentMethod, name="paymentmethods"), nullable=False, default=PaymentMethod.CASH)
     remarks = Column(Text)
     enrollment_id = Column(Integer, ForeignKey("enrollments.enrollment_id"))
 

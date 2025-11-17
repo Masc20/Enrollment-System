@@ -99,7 +99,7 @@ async def get_student_by_id(
 ) -> Students:
 
     result = await db.execute(select(Students).where(Students.student_number == student_number))
-    student = result.scalar_one_or_none()  # ✅ returns single object or None
+    student = result.scalar_one_or_none()
 
     if not student:
         raise HTTPException(status_code=404, detail="Student not found")

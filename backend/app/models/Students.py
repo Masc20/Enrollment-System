@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text, Date, Enum
+from sqlalchemy import Column, Integer, String, Text, Date, Enum, text
 from sqlalchemy.orm import relationship
 
 from app.db import Base
@@ -13,13 +13,13 @@ class Students(Base):
     middle_name = Column(String(30))
     last_name = Column(String(30))
     birth_date = Column(Date)
-    gender = Column(Enum(Gender))
+    gender = Column(Enum(Gender, name="gender"))
     contact_number = Column(String(15))
     email = Column(String(50), unique=True)
     address = Column(Text)
-    admission_status = Column(Enum(AdmissionStatus), nullable=False, name="admissionstatus")        # pending, approved, denied
-    enrollment_status = Column(Enum(EnrollmentStatus), nullable=False, name="enrollmentstatus")      # regular, irregular
-    student_type = Column(Enum(StudentType), nullable=False, name="studenttype")                # old, new, transferee
+    admission_status = Column(Enum(AdmissionStatus, name="admissionstatus"), nullable=False, default=AdmissionStatus.PENDING)        # pending, approved, denied
+    enrollment_status = Column(Enum(EnrollmentStatus, name="enrollmentstatus"), nullable=False, default=EnrollmentStatus.REGULAR)      # regular, irregular
+    student_type = Column(Enum(StudentType, name="studenttype"), nullable=False, default=StudentType.NEW)                # old, new, transferee
 
     # One-to-Many: one student -> many enrollments
     enrollments = relationship("Enrollments", back_populates="student")
