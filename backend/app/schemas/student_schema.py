@@ -2,21 +2,19 @@ from pydantic import BaseModel, EmailStr, ConfigDict
 from typing import Optional
 from datetime import date
 
-from .section_schema import SectionOut
-
 
 # Shared properties
 class StudentBase(BaseModel):
-    student_number: Optional[str] = None
+    student_number: Optional[str]
     first_name: str
     middle_name: Optional[str] = None
     last_name: str
     birth_date: date
     gender: str
-    contact_number: Optional[str] = None
+    contact_number: Optional[str] = "No Number Set"
     email: EmailStr
-    address: Optional[str] = None
-    admission_status: str               # default{new}, old, transferee
+    address: Optional[str]
+    admission_status: Optional[str] = "new"               # default{new}, old, transferee
     enrollment_status: str              # regular, irregular
 
 
@@ -27,17 +25,17 @@ class StudentCreate(StudentBase):
 
 # For updating a student (all optional for patching)
 class StudentUpdate(BaseModel):
-    student_number: Optional[str] = None
-    first_name: Optional[str] = None
-    middle_name: Optional[str] = None
-    last_name: Optional[str] = None
-    birth_date: Optional[date] = None
-    gender: Optional[str] = None
-    contact_number: Optional[str] = None
-    email: Optional[EmailStr] = None
-    address: Optional[str] = None
-    admission_status: Optional[str] = None
-    enrollment_status: Optional[str] = None
+    student_number: Optional[str]
+    first_name: Optional[str]
+    middle_name: Optional[str]
+    last_name: Optional[str]
+    birth_date: Optional[date]
+    gender: Optional[str]
+    contact_number: Optional[str] 
+    email: Optional[EmailStr]
+    address: Optional[str]
+    admission_status: Optional[str]
+    enrollment_status: Optional[str]
 
 class StudentAuth(StudentBase):
     pass
@@ -45,9 +43,7 @@ class StudentAuth(StudentBase):
 # What you return to clients (includes ID)
 class StudentOut(StudentBase):
     student_id: int
-
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class PaginatedStudents(BaseModel):
     page: int
