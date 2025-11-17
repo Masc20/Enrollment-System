@@ -3,11 +3,12 @@ from pydantic import BaseModel, ConfigDict
 from typing import Optional
 
 from .course_schema import CourseOut
+from app.models.enums.academics import YearLevel
 
 
 class SectionBase(BaseModel):
     section_name: str
-    year_level: str
+    year_level: YearLevel
 
 class SectionCreate(SectionBase):
     # For Course

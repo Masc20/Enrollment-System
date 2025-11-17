@@ -2,6 +2,9 @@ from pydantic import BaseModel, EmailStr, ConfigDict
 from typing import Optional
 from datetime import date
 
+from app.models.enums.students import AdmissionStatus, EnrollmentStatus, StudentType
+from app.models.enums.gender import Gender
+
 
 # Shared properties
 class StudentBase(BaseModel):
@@ -10,13 +13,13 @@ class StudentBase(BaseModel):
     middle_name: Optional[str] = None
     last_name: str
     birth_date: date
-    gender: str
-    contact_number: Optional[str] = "No Number Set"
+    gender: Gender
+    contact_number: Optional[str] = None
     email: EmailStr
     address: Optional[str]
-    admission_status: Optional[str] = "pending"       # default {pending}, approved, denied
-    enrollment_status: str              # regular, irregular
-    student_type: Optional[str] = "new"     # default {new}, old, transferee
+    admission_status: Optional[AdmissionStatus] = AdmissionStatus.PENDING
+    enrollment_status: EnrollmentStatus       
+    student_type: Optional[StudentType] = StudentType.NEW   
 
 
 # For creating a student (no ID yet)
@@ -31,12 +34,13 @@ class StudentUpdate(BaseModel):
     middle_name: Optional[str]
     last_name: Optional[str]
     birth_date: Optional[date]
-    gender: Optional[str]
+    gender: Optional[Gender]
     contact_number: Optional[str] 
     email: Optional[EmailStr]
     address: Optional[str]
-    admission_status: Optional[str]
-    enrollment_status: Optional[str]
+    admission_status: Optional[AdmissionStatus]
+    enrollment_status: Optional[EnrollmentStatus]
+    student_type: Optional[StudentType]
 
 class StudentAuth(StudentBase):
     pass

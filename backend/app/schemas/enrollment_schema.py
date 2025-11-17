@@ -1,4 +1,4 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from typing import Optional
 
@@ -6,11 +6,12 @@ from .student_schema import EnrolledStudentOut
 from .section_schema import EnrolledSectionOut
 from .course_schema import CourseOut
 
+from app.models.enums.academics import YearLevel, Semesters
 
 class EnrollmentBase(BaseModel):
-    academic_year: str
-    semester: str
-    year_level: str
+    academic_year: str = Field(..., pattern=r"^\d{4}-\d{4}$")  # format "YYYY-YYYY"
+    semester: Semesters
+    year_level: YearLevel
 
 class EnrollmentCreate(EnrollmentBase):
 

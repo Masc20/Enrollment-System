@@ -1,13 +1,14 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Enum
 from sqlalchemy.orm import relationship
 from app.db import Base
+from .enums.academics import YearLevel
 
 class Sections(Base):
     __tablename__ = "sections"
 
     section_id = Column(Integer, primary_key=True, autoincrement=True)
     section_name = Column(String(30))
-    year_level = Column(String(10))
+    year_level = Column(Enum(YearLevel), nullable=False, name="yearlevels")
     course_id = Column(Integer, ForeignKey("courses.course_id"))
 
     # Relationships
