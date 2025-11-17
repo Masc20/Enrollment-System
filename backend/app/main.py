@@ -2,7 +2,16 @@ from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.v1 import courses_api, departments_api, enrollment_api, requirements_api, sections_api, studentRequirement_api, students_api
+from app.api.v1 import (
+    courses_api, 
+    departments_api,
+    enrollment_api, 
+    requirements_api, 
+    sections_api, 
+    studentRequirement_api, 
+    students_api,
+    auth_api,
+)
 from app.db import init_db, engine
 
 import logging
@@ -69,6 +78,9 @@ app.include_router(departments_api.router, prefix="/departments", tags=["departm
 app.include_router(enrollment_api.router, prefix="/enrollments", tags=["enrollments"])
 app.include_router(requirements_api.router, prefix="/requirements", tags=["requirements"])
 app.include_router(studentRequirement_api.router, prefix="/student_requirements", tags=["student_requirements"])
+
+# Admin Login route
+app.include_router(auth_api.router, prefix="/auth", tags=["auth"])
 
 @app.get("/")
 async def root():

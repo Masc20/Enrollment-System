@@ -11,6 +11,7 @@ pytest
 pytest-asyncio
 httpx
 authlib
-passlib[bcrypt]
+passlib
+argon2-cffi
 python-multipart
 email-validator

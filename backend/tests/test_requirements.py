@@ -109,7 +109,7 @@ async def test_add_new_requirement_exists(mock_db):
 async def test_update_requirement_success(mock_db):
 
     update_data = RequirementUpdate(req_name="Suspension")
-
+    requirement_id = 1
     existing_req = Requirements(req_name="Suspension")
 
     class FakeResult:
@@ -118,7 +118,7 @@ async def test_update_requirement_success(mock_db):
 
     mock_db.execute.return_value = FakeResult()
 
-    result = await update_requirement(mock_db, update_data)
+    result = await update_requirement(mock_db, requirement_id, update_data)
 
     assert result.req_name == "Suspension"
 
@@ -127,7 +127,7 @@ async def test_update_requirement_success(mock_db):
 async def test_update_requirement_not_found(mock_db):
 
     update_data = RequirementUpdate(req_name="NotFound")
-
+    requirement_id = 999
     class FakeResult:
         def scalar_one_or_none(self):
             return None
@@ -135,4 +135,4 @@ async def test_update_requirement_not_found(mock_db):
     mock_db.execute.return_value = FakeResult()
 
     with pytest.raises(HTTPException):
-        await update_requirement(mock_db, update_data) 
+        await update_requirement(mock_db, requirement_id, update_data) 

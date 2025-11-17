@@ -50,7 +50,7 @@ async def update_requirement(
         db: AsyncSession,
         requirement_id: int,
         update_requirements: RequirementUpdate
-        ) -> Requirements:
+) -> Requirements:
 
     result = await db.execute(
         select(Requirements)
