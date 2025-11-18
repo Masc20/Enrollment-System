@@ -1,13 +1,14 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Enum
 from sqlalchemy.orm import relationship
 
 from app.db import Base
+from .enums.days import Week
 
 class Schedules(Base):
     __tablename__ = "schedules"
 
     schedule_id = Column(Integer, primary_key=True, autoincrement=True)
-    days = Column(String(30))
+    days = Column(Enum(Week, name="week"))
     sched_time = Column(DateTime)
     room_number = Column(String(10))
     section_id = Column(Integer, ForeignKey("sections.section_id"))

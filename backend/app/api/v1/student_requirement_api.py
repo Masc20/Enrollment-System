@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, status, Query
 from app.db import get_db
 from app.config import settings
 from app.schemas.requirement_schema import *
-from app.services.studentRequirement_services import *
+from app.services.student_requirement_services import *
 from app.utils.delete_row import delete_by_id
 
 router = APIRouter()

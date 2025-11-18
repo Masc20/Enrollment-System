@@ -7,11 +7,13 @@ from app.api.v1 import (
     departments_api,
     enrollment_api, 
     requirements_api, 
-    sections_api, 
-    studentRequirement_api, 
+    sections_api,
+    student_requirement_api, 
     students_api,
     auth_api,
     administrators_api,
+    teacher_api,
+
 )
 from app.db import init_db, engine
 
@@ -78,11 +80,12 @@ app.include_router(courses_api.router, prefix="/courses", tags=["courses"])
 app.include_router(departments_api.router, prefix="/departments", tags=["departments"])
 app.include_router(enrollment_api.router, prefix="/enrollments", tags=["enrollments"])
 app.include_router(requirements_api.router, prefix="/requirements", tags=["requirements"])
-app.include_router(studentRequirement_api.router, prefix="/student_requirements", tags=["student_requirements"])
+app.include_router(student_requirement_api.router, prefix="/student_requirements", tags=["student_requirements"])
 
 # Admin Login route
 app.include_router(auth_api.router, prefix="/auth", tags=["auth"])
 app.include_router(administrators_api.router, prefix="/admin", tags=["administrators"])
+app.include_router(teacher_api.router, prefix="/teachers", tags=["teachers"])
 
 @app.get("/")
 async def root():

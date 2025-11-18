@@ -21,3 +21,10 @@ class TeacherUpdate(BaseModel):
 class TeacherOut(TeacherBase):
     teacher_id: int
     model_config = ConfigDict(from_attributes=True)
+
+class PaginatedTeacherOut(BaseModel):
+    page: int
+    limit: int
+    total_teachers: int
+    total_pages: int
+    teachers: list[TeacherOut]

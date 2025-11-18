@@ -6,7 +6,7 @@ from fastapi import HTTPException
 
 from app.models.StudentRequirements import StudentRequirements
 from app.utils.pagination import paginate_query
-from app.schemas.studentRequirement_sch import *
+from app.schemas.student_requirement_schema import *
 
 async def list_student_requirements(
     db: AsyncSession,
