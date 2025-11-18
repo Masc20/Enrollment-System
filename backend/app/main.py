@@ -11,6 +11,7 @@ from app.api.v1 import (
     studentRequirement_api, 
     students_api,
     auth_api,
+    administrators_api,
 )
 from app.db import init_db, engine
 
@@ -81,6 +82,7 @@ app.include_router(studentRequirement_api.router, prefix="/student_requirements"
 
 # Admin Login route
 app.include_router(auth_api.router, prefix="/auth", tags=["auth"])
+app.include_router(administrators_api.router, prefix="/admin", tags=["administrators"])
 
 @app.get("/")
 async def root():

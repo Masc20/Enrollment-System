@@ -19,4 +19,12 @@ class AdministratorUpdate(BaseModel):
 class AdministratorOut(BaseModel):
     admin_id: int
     username: str
+    role: str
     model_config = ConfigDict(from_attributes=True)
+
+class PaginatedAdminOut(BaseModel):
+    page: int
+    limit: int
+    total_admin: int
+    total_pages: int
+    admin: list[AdministratorOut]
