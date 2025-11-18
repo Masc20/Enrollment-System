@@ -9,7 +9,33 @@ from app.utils.pagination import paginate_query
 from app.models.Students import Students
 
 # Schema/s
-from app.schemas.student_schema import StudentCreate, StudentUpdate
+from app.schemas.student_schema import *
+
+async def list_students(
+        db: AsyncSession,
+        page: int = 1,
+        limit: int = None
+):
+
+    return await paginate_query(
+        db,
+        Students,
+        page=page,
+        limit=limit
+    )
+
+async def get_student_by_id(
+        db: AsyncSession,
+        student_number: str
+) -> Students:
+
+    result = await db.execute(select(Students).where(Students.student_number == student_number))
+    student = result.scalar_one_or_none()
+
+    if not student:
+        raise HTTPException(status_code=404, detail="Student not found")
+
+    return student
 
 async def create_student(
         db: AsyncSession,
@@ -63,45 +89,3 @@ async def update_student_partial(
     await db.commit()
     await db.refresh(db_student)
     return db_student
-
-async def delete_student(
-        db: AsyncSession,
-        student_id: int
-):
-
-    result = await db.execute(select(Students).where(Students.student_id == student_id))
-    db_student = result.scalar_one_or_none()
-
-    # check if_student_exist
-    if not db_student:
-        raise HTTPException(status_code=404, detail="Student not found")
-
-    await db.delete(db_student)
-    await db.commit()
-    return {"detail": f"Student with id {student_id} deleted successfully"}
-
-async def list_students(
-        db: AsyncSession,
-        page: int = 1,
-        limit: int = None
-):
-
-    return await paginate_query(
-        db,
-        Students,
-        page=page,
-        limit=limit
-    )
-
-async def get_student_by_id(
-        db: AsyncSession,
-        student_number: str
-) -> Students:
-
-    result = await db.execute(select(Students).where(Students.student_number == student_number))
-    student = result.scalar_one_or_none()
-
-    if not student:
-        raise HTTPException(status_code=404, detail="Student not found")
-
-    return student

@@ -69,7 +69,19 @@ async def list_enrollments(
         ]
     )
 
-async def update_enrollment(
+async def get_enrollment_by_id(
+    db: AsyncSession,
+    enrollment_id: int
+):
+    result = await db.execute(select(Enrollments).where(Enrollments.enrollment_id == enrollment_id))
+    enrollment = result.scalar_one_or_none()
+
+    if not enrollment:
+        raise HTTPException(status_code=404, detail="Enrollee not found")
+    
+    return enrollment
+
+async def update_enrollment_by_id(
     db: AsyncSession,
     enrollment_id: int,
     update_data: EnrollmentUpdate

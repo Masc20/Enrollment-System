@@ -21,6 +21,9 @@ class SectionOut(SectionBase):
     course: CourseOut
     model_config = ConfigDict(from_attributes=True)
 
+class SectionUpdate(SectionBase):
+    course_id: Optional[int] = None
+
 class EnrolledSectionOut(SectionBase):
     section_id: int
     section_name : str

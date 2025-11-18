@@ -27,7 +27,7 @@ class EnrollmentCreate(EnrollmentBase):
     course_id: Optional[int] = None
     course_code: Optional[str] = None
 
-class EnrollmentUpdate(EnrollmentBase):
+class EnrollmentUpdate(BaseModel):
     pass
 
 class EnrollmentOut(EnrollmentBase):

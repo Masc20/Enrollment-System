@@ -2,10 +2,9 @@ from fastapi import APIRouter, Depends, status, Query
 
 from app.db import get_db
 from app.config import settings
-
 from app.schemas.requirement_schema import *
-
 from app.services.studentRequirement_services import *
+from app.utils.delete_row import delete_by_id
 
 router = APIRouter()
 
@@ -44,3 +43,10 @@ async def update_student_requirement(
     db: AsyncSession = Depends(get_db)
 ):
     return await update_status(db, stud_req_id, update_data)
+
+@router.delete("/delete/{stud_req_id}", status_code=status.HTTP_200_OK)
+async def delete_student_requirement(
+    stud_req_id: int,
+    db: AsyncSession = Depends(get_db)
+):
+    return await delete_by_id(db, StudentRequirements, stud_req_id)

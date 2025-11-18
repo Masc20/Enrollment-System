@@ -2,23 +2,11 @@ from fastapi import APIRouter, Depends, status, Query
 
 from app.db import get_db
 from app.config import settings
-
-# Schema/s
 from app.schemas.section_schema import *
-
-# Services
 from app.services.section_service import *
+from app.utils.delete_row import delete_by_id
 
 router = APIRouter()
-
-
-@router.post("/new_section", response_model=SectionCreate, status_code=status.HTTP_201_CREATED)
-async def new_section(
-        sections: SectionCreate,
-        db: AsyncSession = Depends(get_db)
-):
-
-    return await create_section(db, sections)
 
 @router.get("/section/{section_id}", response_model=SectionOut)
 async def section(
@@ -47,3 +35,25 @@ async def get_sections(
         "sections": data["items"],
     }
 
+@router.post("/new_section", response_model=SectionCreate, status_code=status.HTTP_201_CREATED)
+async def new_section(
+    sections: SectionCreate,
+    db: AsyncSession = Depends(get_db)
+):
+
+    return await create_section(db, sections)
+
+@router.patch("/update/{section_id}", response_model=SectionOut)
+async def update_section(
+    section_id: int, 
+    section_data: SectionUpdate,
+    db: AsyncSession = Depends(get_db)
+):
+    return await update_section_by_id(db, section_id=section_id, section_data=section_data)
+
+@router.delete("/delete/{section_id}", status_code=status.HTTP_200_OK)
+async def delete_section(
+    section_id: int,
+    db: AsyncSession = Depends(get_db)
+):
+    return await delete_by_id(db, Sections, section_id)

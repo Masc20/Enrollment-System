@@ -10,8 +10,10 @@ class GradeBase(BaseModel):
 class GradeCreate(GradeBase):
     remarks: Optional[str] = "No remarks"
 
-class GradeUpdate(GradeBase):
-    remarks: Optional[str] = "No remarks"
+class GradeUpdate(BaseModel):
+    grade: Optional[int] = None
+    remarks: Optional[str] = None
+    enroll_detail_id: Optional[int] = None
 
 class GradeOut(GradeBase):
    model_config = ConfigDict(from_attributes=True)

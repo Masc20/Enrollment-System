@@ -12,8 +12,11 @@ class TeacherBase(BaseModel):
 class TeacherCreate(TeacherBase):
     pass
 
-class TeacherUpdate(TeacherBase):
-    pass
+class TeacherUpdate(BaseModel):
+    firstname: Optional[str] = None
+    lastname: Optional[str] = None
+    contact_number: Optional[str] = None
+    email: Optional[str] = None
 
 class TeacherOut(TeacherBase):
     teacher_id: int

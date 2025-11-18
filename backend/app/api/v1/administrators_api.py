@@ -4,6 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.services.administrator_service import *
 from app.db import get_db
 from app.config import settings
+from app.utils.delete_row import delete_by_id
 
 router = APIRouter()
 
@@ -39,5 +40,5 @@ async def update_admin(admin_id: int, new_data: AdministratorUpdate, db: AsyncSe
     return await update_admin_by_id(db, admin_id=admin_id, updated_admin=new_data)
 
 @router.delete("delete/{admin_id}", status_code=status.HTTP_200_OK)
-async def delete_admin(admin_id: int, db: AsyncSession):
-    return await delete_admin_by_id(db, admin_id=admin_id )
+async def delete_admin(admin_id: int, db: AsyncSession = Depends(get_db)):
+    return await delete_by_id(db, Administrators, admin_id=admin_id )

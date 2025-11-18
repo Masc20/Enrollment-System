@@ -7,14 +7,20 @@ from .department_schema import DepartmentOut
 class CourseBase(BaseModel):
     course_name: str
     course_code: str
+    dept_id: int
 
 class CourseCreate(CourseBase):
-    dept_id: Optional[int] = None
-    dept_name: Optional[str] = None
-    pass
+    dept_id: Optional[int]
+    dept_name: Optional[str]
+    
 
-class CourseUpdate(CourseBase):
-    pass
+class CourseUpdate(BaseModel):
+    course_name: Optional[str]
+    course_code: Optional[str]
+    dept_id: Optional[int]
+
+class CourseDelete(BaseModel):
+    course_id: int
 
 class CourseOut(CourseBase):
     course_id: int

@@ -2,45 +2,11 @@ from fastapi import APIRouter, Depends, status, Query
 
 from app.db import get_db
 from app.config import settings
-
-# Schema/s
 from app.schemas.student_schema import *
-
-# Service/s
 from app.services.student_service import *
+from app.utils.delete_row import delete_by_id
 
 router = APIRouter()
-
-# Delete
-@router.delete("/delete/{student_id}", status_code=status.HTTP_200_OK)
-async def remove_student(
-        student_id: int,
-        db: AsyncSession = Depends(get_db)
-):
-
-    return await delete_student(db, student_id)
-
-# Patch
-@router.patch("/update/{student_id}", response_model=StudentOut)
-async def update_student_patch(
-        student_id: int,
-        student: StudentUpdate,
-        db: AsyncSession = Depends(get_db)
-):
-
-    return await update_student_partial(db, student_id, student)
-
-
-# Post
-@router.post("/new_student", response_model=StudentOut, status_code=status.HTTP_201_CREATED)
-async def add_student(
-        student: StudentCreate,
-        db: AsyncSession = Depends(get_db)
-):
-
-    return await create_student(db, student)
-
-
 
 # Get
 @router.get("/", response_model= PaginatedStudents)
@@ -69,3 +35,31 @@ async def get_student(
         db: AsyncSession = Depends(get_db)
 ) -> Students:
     return await get_student_by_id(db, student_number)
+
+# Post
+@router.post("/new_student", response_model=StudentOut, status_code=status.HTTP_201_CREATED)
+async def add_student(
+        student: StudentCreate,
+        db: AsyncSession = Depends(get_db)
+):
+
+    return await create_student(db, student)
+
+# Patch
+@router.patch("/update/{student_id}", response_model=StudentOut)
+async def update_student_patch(
+        student_id: int,
+        student: StudentUpdate,
+        db: AsyncSession = Depends(get_db)
+):
+
+    return await update_student_partial(db, student_id, student)
+
+# Delete
+@router.delete("/delete/{student_id}", status_code=status.HTTP_200_OK)
+async def remove_student(
+        student_id: int,
+        db: AsyncSession = Depends(get_db)
+):
+
+    return await delete_by_id(db, Students, student_id)

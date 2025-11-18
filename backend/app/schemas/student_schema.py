@@ -8,7 +8,7 @@ from app.models.enums.gender import Gender
 
 # Shared properties
 class StudentBase(BaseModel):
-    student_number: Optional[str]
+    student_number: str
     first_name: str
     middle_name: Optional[str] = None
     last_name: str
@@ -16,7 +16,7 @@ class StudentBase(BaseModel):
     gender: Gender
     contact_number: Optional[str] = None
     email: EmailStr
-    address: Optional[str]
+    address: Optional[str] = None
     admission_status: Optional[AdmissionStatus] = AdmissionStatus.PENDING
     enrollment_status: EnrollmentStatus       
     student_type: Optional[StudentType] = StudentType.NEW   
@@ -29,18 +29,18 @@ class StudentCreate(StudentBase):
 
 # For updating a student (all optional for patching)
 class StudentUpdate(BaseModel):
-    student_number: Optional[str]
-    first_name: Optional[str]
-    middle_name: Optional[str]
-    last_name: Optional[str]
-    birth_date: Optional[date]
-    gender: Optional[Gender]
-    contact_number: Optional[str] 
-    email: Optional[EmailStr]
-    address: Optional[str]
-    admission_status: Optional[AdmissionStatus]
-    enrollment_status: Optional[EnrollmentStatus]
-    student_type: Optional[StudentType]
+    student_number: Optional[str] = None
+    first_name: Optional[str] = None
+    middle_name: Optional[str] = None
+    last_name: Optional[str] = None
+    birth_date: Optional[date] = None
+    gender: Optional[Gender] = None
+    contact_number: Optional[str] = None
+    email: Optional[str] = None
+    address: Optional[str] = None
+    admission_status: Optional[AdmissionStatus] = None
+    enrollment_status: Optional[EnrollmentStatus] = None
+    student_type: Optional[StudentType] = None
 
 class StudentAuth(StudentBase):
     pass

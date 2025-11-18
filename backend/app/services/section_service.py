@@ -10,7 +10,7 @@ from app.models.Courses import Courses
 from app.models.Sections import Sections
 
 # Schema/s
-from app.schemas.section_schema import SectionCreate
+from app.schemas.section_schema import *
 
 async def create_section(
         db: AsyncSession,
@@ -87,3 +87,21 @@ async def get_all_section(
             selectinload(Sections.course)
         ]
     )
+
+async def update_section_by_id(
+    db: AsyncSession,
+    section_id: int,
+    seciton_data: SectionUpdate
+):
+    result = await db.execute(select(Sections).where(Sections.section_id == section_id))
+    section = result.scalar_one_or_none()
+
+    if not section:
+        raise HTTPException(status_code=404, detail=f"Section: '{section}' not found")
+    
+    for key, value in seciton_data.model_dump(exclude_unset=True).items():
+        setattr(section, key, value)
+
+    await db.commit()
+    await db.refresh(section)
+    return section

@@ -49,29 +49,18 @@ async def add_new_admin(db: AsyncSession, new_admin: AdministratorCreate):
     db.add(db_new_admin)
     await db.commit()
     await db.refresh(db_new_admin)
-    return {"detail": "admin added successfully"}
+    return db_new_admin
 
 async def update_admin_by_id(db: AsyncSession, admin_id: int, updated_admin: AdministratorUpdate):
     result = await db.execute(select(Administrators).where(Administrators.admin_id == updated_admin.admin_id))
-    db_admin = result.scalar_one_or_none()
+    admin = result.scalar_one_or_none()
 
-    if not db_admin:
+    if not admin:
         raise HTTPException(status_code=404, detail=f"admin_id: '{admin_id}' not found")
     
-    for key, value in db_admin.model_dump(exclude_unset=True).items():
-        setattr(db_admin, key, value)
+    for key, value in updated_admin.model_dump(exclude_unset=True).items():
+        setattr(admin, key, value)
     
     await db.commit()
-    await db.refresh(db_admin)
-    return db_admin
-    
-async def delete_admin_by_id(db: AsyncSession, admin_id: int):
-    result = await db.execute(select(Administrators).where(Administrators.admin_id == admin_id))
-    db_admin = result.scalar_one_or_none()
-
-    if not db_admin:
-        raise HTTPException(status_code=404, detail=f"admin_id: '{admin_id}' not found" )
-
-    await db.delete(db_admin)
-    await db.commit()
-    return {"detail": "Deleted Successfully"}
+    await db.refresh(admin)
+    return admin

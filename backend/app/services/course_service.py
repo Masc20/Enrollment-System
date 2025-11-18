@@ -11,7 +11,7 @@ from app.models import Departments
 
 
 # Schema/s
-from app.schemas.course_schema import CourseCreate
+from app.schemas.course_schema import *
 
 async def get_courses(
         db: AsyncSession,
@@ -74,3 +74,22 @@ async def create_course(
     await db.commit()
     await db.refresh(db_course)
     return db_course
+
+
+async def update_course_by_id(
+        db: AsyncSession, 
+        course_id: int, 
+        course_data: CourseUpdate
+):
+    result = await db.execute(select(Courses).where(Courses.student_id == course_id))
+    course = result.scalar_one_or_none()
+
+    if not course:
+        raise HTTPException(status_code=404, detail="Student not found")
+
+    for key, value in course_data.model_dump(exclude_unset=True).items():
+        setattr(course, key, value)
+
+    await db.commit()
+    await db.refresh(course)
+    return course
