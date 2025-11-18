@@ -33,3 +33,6 @@ async def update_admin(db: AsyncSession, admin_id: int, updated_admin: Administr
 
     if not isExists:
         raise HTTPException(status_code=400, detail=f"admin_id: '{admin_id}' not found")
+    
+async def delete_admin(db: AsyncSession, admin_id: int):
+    result = await db.execute(select(Administrators))
