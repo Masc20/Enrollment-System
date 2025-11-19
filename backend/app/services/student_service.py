@@ -50,7 +50,6 @@ async def create_student(
         raise HTTPException(status_code=400, detail="Student number already exists")
 
     db_student = Students(
-        student_number=student.student_number,
         middle_name=student.middle_name,
         first_name=student.first_name,
         last_name=student.last_name,

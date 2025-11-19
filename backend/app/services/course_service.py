@@ -44,7 +44,7 @@ async def create_course(
         db: AsyncSession,
         course: CourseCreate
 ) -> Courses:
-
+    dept_id: int
     if course.dept_id:
         dept_id = course.dept_id
         # validate if department exist

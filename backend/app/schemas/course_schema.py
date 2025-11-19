@@ -10,14 +10,14 @@ class CourseBase(BaseModel):
     dept_id: int
 
 class CourseCreate(CourseBase):
-    dept_id: Optional[int]
-    dept_name: Optional[str]
+    dept_id: Optional[int] = None
+    dept_name: Optional[str] = None
     
 
 class CourseUpdate(BaseModel):
-    course_name: Optional[str]
-    course_code: Optional[str]
-    dept_id: Optional[int]
+    course_name: Optional[str] = None
+    course_code: Optional[str] = None
+    dept_id: Optional[int] = None
 
 class CourseDelete(BaseModel):
     course_id: int

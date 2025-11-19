@@ -11,13 +11,13 @@ class Courses(Base):
     dept_id = Column(Integer, ForeignKey("departments.dept_id"))
 
     # Many-to-One: many courses -> one department
-    department = relationship("Departments", back_populates="courses")
+    department = relationship("Departments", back_populates="courses", lazy="selectin")
 
     # One-to-Many: one course -> many sections
-    sections = relationship("Sections", back_populates="course")
+    sections = relationship("Sections", back_populates="course", lazy="selectin")
 
     # One-to-Many: one course -> many enrollments
-    enrollments = relationship("Enrollments", back_populates="course")
+    enrollments = relationship("Enrollments", back_populates="course", lazy="selectin")
 
     def __repr__(self):
         return f"<Course(code={self.course_code}, name={self.course_name})>"

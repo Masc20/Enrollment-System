@@ -55,4 +55,4 @@ async def delete_course(
     course_id: int,
     db: AsyncSession = Depends(get_db)
 ):
-    return await delete_by_id(db, Courses, course_id=course_id)
+    return await delete_by_id(db, Courses, course_id)

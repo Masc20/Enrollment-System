@@ -8,7 +8,7 @@ from app.models.enums.gender import Gender
 
 # Shared properties
 class StudentBase(BaseModel):
-    student_number: str
+    student_number: Optional[str] = None
     first_name: str
     middle_name: Optional[str] = None
     last_name: str
